@@ -12,10 +12,21 @@
 
 #include "../include/so_long.h"
 
+void	error_message(char *s)
+{
+	printf ("Error : %s !\n", s);
+}
+
 int	main(int argc, char **argv)
 {
+	t_data	data;
+
 	if (argc != 2)
+	{
+		error_message ("please entre a valid file name");
 		return (1);
-	validate_map(argv[1]);
+	}
+	if (!read_map(&data, argv[1]))
+		error_message ("map is invalid");
 	return (0);
 }
