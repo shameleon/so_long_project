@@ -22,23 +22,78 @@
 #define TILE_Y 32
 #define TILE_X 32
 
-/* count lines in a file : */
+void	print_map(char **map)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (map[y] != NULL)
+	{
+		x = 0;
+		while (map[y][x] != '\0')
+		{
+			write (1, &map[y][x], 1);
+			x++;
+		}
+		write (1, "\n", 1);
+		y++;
+	}
+}
+
+/*Parse file into a char ** array of strings */
+char	**ft_parse_file(int fd, int nb_lines, int line_len)
+{
+	char	**map;
+	int		rb;
+	int		i;
+
+	i = 0;
+	map = (char **)malloc (sizeof(*map) * (nb_lines + 1));
+	if (!map)
+		return (NULL);
+	while (i < nb_lines)
+	{
+		map[i] = (char *)malloc (sizeof(*map) * (line_len + 1));
+		// if (!map[i])
+			// free exit
+		rb = read(fd, map[i], line_len + 1 );
+		if (rb < line_len)
+			free(map[i]);
+		map[i][line_len] = '\0';  // removes the '\n'
+		printf ("map[%d]=%s\n", i, map[i]);
+		i++;
+	}
+	map[nb_lines] = NULL;
+	return (map);
+}
+
+/* count lines in a file :
+will ignore a shorter last line 
+will ignore additonal chars of a trailing last line*/
 int		count_lines(int fd, int len)
 {
 	char	buff[len + 1];
 	int		nb_lines;
 	int		rb;
+	int		reading;
 
 	nb_lines = 1;
-	rb = 1;
-	while (rb)
+	reading = 1;
+	while (reading)
 	{
 		rb = read (fd, buff, len + 1);
-		if (rb >= len && (buff[len] == '\n' || buff[len] == '\0'))
-				nb_lines += 1;
+		if (rb >= len) 
+		{
+			nb_lines += 1;
+			if (buff[len] != '\n')
+				reading = 0;
+		}
 		else
-			return (0);
+			reading = 0;
 	}
+	if (nb_lines < 4 || nb_lines > (WIN_H / TILE_Y))
+		return (0);
 	return (nb_lines);
 }
 
@@ -73,6 +128,7 @@ int	read_map(char *file)
 	int		fd;
 	int		line_len;
 	int		nb_lines;
+	char	**map;
 
 	fd = open(file, O_RDONLY);
 	if (fd > 0)
@@ -80,9 +136,13 @@ int	read_map(char *file)
 		line_len = pioneer_read(fd);
 		if (line_len)
 		{
-			printf ("line length : %d\n\n", line_len);
+			printf ("line length = %d\n", line_len);
 			nb_lines = count_lines(fd, line_len);
 			printf ("number of lines = %d\n", nb_lines);
+			close (fd);
+			fd = open(file, O_RDONLY);
+			map = ft_parse_file(fd, nb_lines, line_len);
+			print_map (map);
 			return (0);
 		}
 	}
