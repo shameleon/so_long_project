@@ -22,6 +22,16 @@
 #define TILE_Y 32
 #define TILE_X 32
 
+void	free_map(char **map, int k)
+{
+	while (k >= 0)
+	{
+		free(map[k]);
+		k--;
+	}
+	free(map);
+	map = NULL;
+}
 void	print_map(char **map)
 {
 	int		x;
@@ -55,11 +65,11 @@ char	**ft_parse_file(int fd, int nb_lines, int line_len)
 	while (i < nb_lines)
 	{
 		map[i] = (char *)malloc (sizeof(*map) * (line_len + 1));
-		// if (!map[i])
-			// free exit
+		if (!map[i])
+			free_map(map, i);
 		rb = read(fd, map[i], line_len + 1 );
 		if (rb < line_len)
-			free(map[i]);
+			free_map(map, i);
 		map[i][line_len] = '\0';  // removes the '\n'
 		printf ("map[%d]=%s\n", i, map[i]);
 		i++;
@@ -143,6 +153,7 @@ int	read_map(char *file)
 			fd = open(file, O_RDONLY);
 			map = ft_parse_file(fd, nb_lines, line_len);
 			print_map (map);
+			free_map(map, nb_lines);
 			return (0);
 		}
 	}
