@@ -61,5 +61,6 @@ char	**ft_split_file(int fd, int nb_lines, int line_len);
 int     parse_file(int fd, t_data *data);
 
 /* validate_map.c*/
+int     validate_map(t_data data);
 
 #endif
