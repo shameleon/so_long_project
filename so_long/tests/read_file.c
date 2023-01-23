@@ -1,82 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 08:49:09 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/01/20 10:48:52 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:33:12 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-
-#define WALL '1'
-#define FLOOR '0'
-#define WIN_W 1280
-#define WIN_H 1024
-#define TILE_Y 32
-#define TILE_X 32
-
-void	free_map(char **map, int k)
-{
-	while (k >= 0)
-	{
-		free(map[k]);
-		k--;
-	}
-	free(map);
-	map = NULL;
-}
-void	print_map(char **map)
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (map[y] != NULL)
-	{
-		x = 0;
-		while (map[y][x] != '\0')
-		{
-			write (1, &map[y][x], 1);
-			x++;
-		}
-		write (1, "\n", 1);
-		y++;
-	}
-}
-
-/*Parse file into a char ** array of strings */
-char	**ft_parse_file(int fd, int nb_lines, int line_len)
-{
-	char	**map;
-	int		rb;
-	int		i;
-
-	i = 0;
-	map = (char **)malloc (sizeof(*map) * (nb_lines + 1));
-	if (!map)
-		return (NULL);
-	while (i < nb_lines)
-	{
-		map[i] = (char *)malloc (sizeof(*map) * (line_len + 1));
-		if (!map[i])
-			free_map(map, i);
-		rb = read(fd, map[i], line_len + 1 );
-		if (rb < line_len)
-			free_map(map, i);
-		map[i][line_len] = '\0';  // removes the '\n'
-		printf ("map[%d]=%s\n", i, map[i]);
-		i++;
-	}
-	map[nb_lines] = NULL;
-	return (map);
-}
+#include "map.h"
 
 /* count lines in a file :
 will ignore a shorter last line 
@@ -133,41 +67,76 @@ int		pioneer_read(int fd)
 	return (line_len);
 }
 
-int	read_map(char *file)
+/* reads from file and counts line length and number of lines*/
+int		read_file_content(char *file, t_data *data)
 {
 	int		fd;
-	int		line_len;
-	int		nb_lines;
-	char	**map;
 
 	fd = open(file, O_RDONLY);
 	if (fd > 0)
-	{
-		line_len = pioneer_read(fd);
-		if (line_len)
+	{	
+		data->map->line_len = pioneer_read(fd);
+		data->map->nb_lines = count_lines(fd, data->map->line_len);
+		printf("line_len=%d, nb_lines=%d\n", data->map->line_len, data->map->nb_lines);
+		if (!data->map->line_len || !data->map->nb_lines)
 		{
-			printf ("line length = %d\n", line_len);
-			nb_lines = count_lines(fd, line_len);
-			printf ("number of lines = %d\n", nb_lines);
-			close (fd);
-			fd = open(file, O_RDONLY);
-			map = ft_parse_file(fd, nb_lines, line_len);
-			print_map (map);
-			free_map(map, nb_lines);
+			printf("Error\n# file content is not valid\n");
 			return (0);
 		}
+		close (fd);
+		fd = open(file, O_RDONLY);
+		printf ("file is open\n");
+		if (fd > 0)
+			return (fd);
 	}
-	printf ("cannot open file\n");
+	printf ("Error\n#cannot open file\n");
+	return (0);
+}
+
+/* checks for a .ber file extension
+will allow multiple dots in file name
+to exclude multiple dots : if (!ext || ft_strnchr(file, '.') > 1)
+*/
+int		valid_filename(const char *file, char *pattern)
+{
+	char	*ext;
+
+	ext = ft_strrchr(file, '.');
+	if(!ext)
+		return (0);
+	if(ft_strncmp(ext, pattern, 5))
+		return (0);
 	return (1);
 }
 
-int	main(int argc, char **argv)
+/* main */
+int		main(int argc, char **argv)
 {
+	t_data	*data;
+	int		fd;
+
 	if (argc != 2)
 	{
-		printf ("no file\n");
+		printf ("Error\n# not exactly one file turned in\n");
 		return (1);
 	}
-	read_map(argv[1]);
+	if (!valid_filename(argv[1], ".ber"))
+	{
+		printf ("Error\n# input file is not a .ber file\n");
+		return (1);
+	}
+	data = (t_data *)malloc (sizeof(*data));
+	data->map = (t_map *)malloc (sizeof(t_map *));
+	fd = read_file_content(argv[1], data);
+	if (fd > 0)
+	{
+		parse_file(fd, data);
+		print_map(data->map->tiles);
+	}
+	free_map(data->map->tiles, data->map->nb_lines - 1);
+	free (data->map);
+	//data->map = NULL;
+	free (data);
+	//data = NULL;
 	return (0);
 }
