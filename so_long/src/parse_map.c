@@ -66,7 +66,6 @@ char	**ft_split_file(int fd, int nb_lines, int line_len)
 		if (rb < line_len)
 			free_map(map, i, 0);
 		map[i][line_len] = '\0';
-		printf ("map[%d]=%s\n", i, map[i]);
 		i++;
 	}
 	map[nb_lines] = NULL;
@@ -80,12 +79,8 @@ int     parse_file(int fd, t_data (*data))
 
     len = data->map->line_len;
     lines = data->map->nb_lines;
-	printf ("%d x %d\n", len, lines);
 	data->map->tiles = ft_split_file(fd, lines, len);
 	if (!data->map->tiles)
-	{
-		printf ("Error\n# map could not be loaded\n");
-		return (0);
-	}
+		return (put_error("map could not be loaded"));
 	return (1);
 }

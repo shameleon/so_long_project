@@ -77,5 +77,8 @@ int     validate_map(t_data *data)
     res *= map_content(data->map);
     if (!res)
         return (put_error ("map content is not valid"));
-    return(res);
+    res *= pathfinder(data->map);
+    if (!res)
+        return (put_error ("map walls prevent player for reaching exit"));
+    return (res);
 }

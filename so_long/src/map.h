@@ -69,6 +69,8 @@ int     put_error(char *str);
 int     validate_map(t_data *data);
 
 /* path_finding.c*/
+int     floodfill(char **mirror, int y, int x);
 char    **dup_map(t_map *map);
+int     pathfinder(t_map *map);
 
 #endif
