@@ -12,28 +12,34 @@
 
 #include "map.h"
 
-int     wallproofing(char **map, int nb_lines)
+int     wallproofing(t_map *map)
 {
     int     y;
-    int     nb_lines;
 
     y = 1;
-    if ((ft_strnchr(map[0], WALL) == line_len)
-        && (ft_strnchr(data->map->tiles[nb_lines - 1], '1') == line_len)
+    if ((ft_strnchr(map->tiles[0], WALL) == map->line_len)
+        && (ft_strnchr(map->tiles[map->nb_lines - 1], '1') == map->line_len))
     {
-        while (y < nb_lines - 1)
+        while (y < map->nb_lines - 1)
         {
-            if (data->map)
+            if (map->tiles[y][0] != WALL 
+                || map->tiles[y][map->line_len - 1] != WALL)
+                return(0);
+            y++;
         }
     }
-    return (0);
+    else
+        return (0);
+    return (1);
 }
 
-int     validate_map(t_data data)
+int     validate_map(t_data *data)
 {
     int     res;
 
     res = 1;
-    res *= wallproofing(data->map->tiles, data->map->nb_lines);
+    res *= wallproofing(data->map);
+    if (!res)
+        printf ("Error\nmap is not surrounded by walls\n");
     return(res);
 }

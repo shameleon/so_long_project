@@ -125,13 +125,15 @@ int		main(int argc, char **argv)
 		printf ("Error\n# input file is not a .ber file\n");
 		return (1);
 	}
-	data = (t_data *)malloc (sizeof(*data));
+	data = (t_data *)malloc (sizeof(t_data *));
 	data->map = (t_map *)malloc (sizeof(t_map *));
 	fd = read_file_content(argv[1], data);
 	if (fd > 0)
 	{
 		parse_file(fd, data);
 		print_map(data->map->tiles);
+		if (VALIDATE)
+			validate_map(data);
 	}
 	free_map(data->map->tiles, data->map->nb_lines - 1);
 	free (data->map);

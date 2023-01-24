@@ -70,7 +70,7 @@ char	**ft_split_file(int fd, int nb_lines, int line_len)
 	return (map);
 }
 
-int     parse_file(int fd, t_data *data)
+int     parse_file(int fd, t_data (*data))
 {
 	int		len;
 	int		lines;
