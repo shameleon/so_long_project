@@ -47,6 +47,7 @@ int     ft_strncmp(const char *s1, const char *s2, size_t n);
 char    *ft_strchr(const char *s, int c);
 int     ft_strnchr(const char *s, int c);
 char    *ft_strrchr(const char *s, int c);
+void    ft_putendl(char *s);
 
 /* read_file.c */
 int		count_lines(int fd, int len);
@@ -62,7 +63,9 @@ char	**ft_split_file(int fd, int nb_lines, int line_len);
 int     parse_file(int fd, t_data *data);
 
 /* validate_map.c*/
+int     map_content(t_map *map);
 int     wallproofing(t_map *map);
+int     puterror(char *str);
 int     validate_map(t_data *data);
 
 #endif
