@@ -58,9 +58,10 @@ int     wallproofing(t_map *map)
 }
 
 /* writes error message on std out*/
-int     puterror(char *str)
+int     put_error(char *str)
 {
     ft_putendl("Error");
+    write(1, "# ", 2);
     ft_putendl(str);
     return (0);
 }
@@ -72,9 +73,9 @@ int     validate_map(t_data *data)
     res = 1;
     res *= wallproofing(data->map);
     if (!res)
-        return (puterror ("map is not surrounded by walls"));
+        return (put_error ("map is not surrounded by walls"));
     res *= map_content(data->map);
     if (!res)
-        return (puterror ("map content is not valid"));
+        return (put_error ("map content is not valid"));
     return(res);
 }

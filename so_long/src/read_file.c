@@ -79,18 +79,13 @@ int		read_file_content(char *file, t_data *data)
 		data->map->nb_lines = count_lines(fd, data->map->line_len);
 		printf("line_len=%d, nb_lines=%d\n", data->map->line_len, data->map->nb_lines);
 		if (!data->map->line_len || !data->map->nb_lines)
-		{
-			printf("Error\n# file content is not valid\n");
-			return (0);
-		}
+			return (put_error("file content is not valid"));
 		close (fd);
 		fd = open(file, O_RDONLY);
-		printf ("file is open\n");
 		if (fd > 0)
 			return (fd);
 	}
-	printf ("Error\n#cannot open file\n");
-	return (0);
+	return (put_error("Error\n#cannot open file\n"));
 }
 
 /* checks for a .ber file extension
@@ -116,15 +111,9 @@ int		main(int argc, char **argv)
 	int		fd;
 
 	if (argc != 2)
-	{
-		printf ("Error\n# not exactly one file turned in\n");
-		return (1);
-	}
+		return (put_error("not exactly one file turned in"));
 	if (!valid_filename(argv[1], ".ber"))
-	{
-		printf ("Error\n# input file is not a .ber file\n");
-		return (1);
-	}
+		return (put_error("input file is not a .ber file"));
 	data = (t_data *)malloc (sizeof(t_data *));
 	data->map = (t_map *)malloc (sizeof(t_map *));
 	fd = read_file_content(argv[1], data);
@@ -135,10 +124,10 @@ int		main(int argc, char **argv)
 		if (VALIDATE)
 			validate_map(data);
 	}
-	free_map(data->map->tiles, data->map->nb_lines - 1);
+	free_map(data->map->tiles, data->map->nb_lines - 1, 1);
 	free (data->map);
 	//data->map = NULL;
 	free (data);
 	//data = NULL;
-	return (0);
+	return (1);
 }

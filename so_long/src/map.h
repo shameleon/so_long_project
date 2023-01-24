@@ -57,7 +57,7 @@ int		valid_filename(const char *file, char *extension);
 int     main(int argc, char **argv);
 
 /* parse_map.c*/
-void	free_map(char **map, int line);
+char	**free_map(char **map, int line, int all);
 void	print_map(char **map);
 char	**ft_split_file(int fd, int nb_lines, int line_len);
 int     parse_file(int fd, t_data *data);
@@ -65,7 +65,10 @@ int     parse_file(int fd, t_data *data);
 /* validate_map.c*/
 int     map_content(t_map *map);
 int     wallproofing(t_map *map);
-int     puterror(char *str);
+int     put_error(char *str);
 int     validate_map(t_data *data);
+
+/* path_finding.c*/
+char    **dup_map(t_map *map);
 
 #endif

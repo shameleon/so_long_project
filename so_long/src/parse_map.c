@@ -13,7 +13,7 @@
 #include "map.h"
 
 /* frees the map char **map */
-void	free_map(char **map, int line)
+char	**free_map(char **map, int line, int all)
 {
 	while (line >= 0)
 	{
@@ -22,6 +22,9 @@ void	free_map(char **map, int line)
 	}
 	free(map);
 	map = NULL;
+	if (!all)
+		put_error("memory allocation failed");
+	return (NULL);
 }
 
 void	print_map(char **map)
@@ -58,10 +61,10 @@ char	**ft_split_file(int fd, int nb_lines, int line_len)
 	{
 		map[i] = (char *)malloc (sizeof(*map) * (line_len + 1));
 		if (!map[i])
-			free_map(map, i);
+			free_map(map, i, 0);
 		rb = read(fd, map[i], line_len + 1 );
 		if (rb < line_len)
-			free_map(map, i);
+			free_map(map, i, 0);
 		map[i][line_len] = '\0';
 		printf ("map[%d]=%s\n", i, map[i]);
 		i++;
