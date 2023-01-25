@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/* putting one xpm file to window */
 #include <stdlib.h>
 #include "mlx.h"
 
@@ -19,7 +20,7 @@
 #define ERR_MLX 1
 #define WALL "../so_long/rss/wall.xpm"
 #define FLOOR "../so_long/rss/floor.xpm"
-#define TILE_SIZE 80
+#define TILE_SIZE 32
 
 typedef struct  s_map
 {
@@ -58,11 +59,12 @@ int main(void)
         free (d.win);
         return (ERR_MLX);
     }
+    d.img->img = mlx_new_image(d.mlx, TILE_SIZE , TILE_SIZE);
     d.img->path = FLOOR;
     d.img->img_w = TILE_SIZE;
     d.img->img_h = TILE_SIZE;
     d.img->img = mlx_xpm_file_to_image(d.mlx, d.img->path, &d.img->img_w, &d.img->img_h);
-    mlx_put_image_to_window(d.mlx, d.win, d.img, 0, 0);
+    mlx_put_image_to_window(d.mlx, d.win, d.img->img, 0, 0);
     mlx_loop(d.mlx);
     mlx_destroy_image(d.mlx, d.img);
     mlx_destroy_window(d.mlx, d.win);
