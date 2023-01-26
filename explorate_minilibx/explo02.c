@@ -59,12 +59,14 @@ int main(void)
         free (d.win);
         return (ERR_MLX);
     }
-    d.img->img = mlx_new_image(d.mlx, TILE_SIZE , TILE_SIZE);
+    //d.img->img = mlx_new_image(d.mlx, TILE_SIZE , TILE_SIZE);
     d.img->path = FLOOR;
     d.img->img_w = TILE_SIZE;
     d.img->img_h = TILE_SIZE;
     d.img->img = mlx_xpm_file_to_image(d.mlx, d.img->path, &d.img->img_w, &d.img->img_h);
     mlx_put_image_to_window(d.mlx, d.win, d.img->img, 0, 0);
+    mlx_put_image_to_window(d.mlx, d.win, d.img->img, 32, 0);
+    mlx_put_image_to_window(d.mlx, d.win, d.img->img, 62, 0);
     mlx_loop(d.mlx);
     mlx_destroy_image(d.mlx, d.img);
     mlx_destroy_window(d.mlx, d.win);
