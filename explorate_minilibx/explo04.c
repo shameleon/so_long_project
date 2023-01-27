@@ -125,6 +125,7 @@ int    player_moves(t_data *d, int i, int j)
         d->pl_y += i;
         d->pl_x += j;
         //|| d->map.map[y][x] == 'C'
+        mlx_string_put(d->mlx, d->win, 20, 20, 0x000000FF, "move");
         return (1);
     }
     return (1);
@@ -132,17 +133,16 @@ int    player_moves(t_data *d, int i, int j)
 
 int     game_controls(int KeySym, t_data *d)
 {
-    if (KeySym == 'w')
+    if (KeySym == 'w' || KeySym == 65362)
         player_moves(d, -1, 0);
-    else if (KeySym == 's')
+    else if (KeySym == 's' || KeySym == 65364)
         player_moves(d, 1, 0);
-    else if (KeySym == 'a')
+    else if (KeySym == 'a' || KeySym == 65361)
         player_moves(d, 0, -1);
-    else if (KeySym == 'd')
+    else if (KeySym == 'd' || KeySym == 65363)
         player_moves(d, 0, 1);
     else if (KeySym == 'q' || KeySym == 65307)
         printf ("exit game \n");
-    // player_move(d, 1, 0);
     return (0);
 }
 
@@ -154,6 +154,12 @@ void     free_game(t_data *d)
     mlx_destroy_display(d->mlx);
     free(d->mlx);
     free(d);
+}
+
+int     mouse_hook(t_data *d)
+{
+    printf ("mouse : pressed = %d\n", ButtonPress);
+    return (0);
 }
 
 int     main(void)
@@ -171,6 +177,7 @@ int     main(void)
     d->img.exit = mlx_xpm_file_to_image(d->mlx, "../so_long/rss/exit_open2.xpm", &d->img.w, &d->img.h);
     display_map(d);
     mlx_hook(d->win, 2, 1L<<0, game_controls, d);
+    mlx_mouse_hook(d->win, mouse_hook, d);
     mlx_loop(d->mlx);
     //mlx_destroy_image(d->mlx, d->img.wall);
     free_game(d);
