@@ -10,8 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= explo03
-SRC		= explo03.c
+NAME	= explo04
+SRC		= explo04.c
 CC		= clang
 INCLIB	= minilibx
 CFLAGS	= -Wall -Werror -Wextra 
