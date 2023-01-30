@@ -16,16 +16,17 @@ int    floodfill(char **mirror, int y, int x)
 {
     write(1, "\n", 1);
     print_map(mirror);
-    if (mirror[y][x] == 'E')
-        return (1);
-    if (mirror[y][x] == '0' || mirror[y][x] == 'C' || mirror[y][x] == 'P')
+    // if (mirror[y][x] == 'E')
+    //    return (1);
+    if (mirror[y][x] == '0' || mirror[y][x] == 'C' 
+    || mirror[y][x] == 'P' || mirror[y][x] == 'E')
     {
         // if (mirror [y][x] != 'F')
-        mirror[y][x] = 'F';
+        mirror[y][x] = '+';
         floodfill(mirror, y, x + 1);
         floodfill(mirror, y + 1, x);
         floodfill(mirror, y, x - 1);
-        floodfill(mirror, y + 1, x );
+        floodfill(mirror, y - 1, x );
     }
     return (0);
 }
@@ -49,7 +50,7 @@ char    **dup_map(t_map *map)
         if (!mirror[y])
             return (free_map(mirror, y, 0));
         x = 0;
-        while (x < map->line_len)
+        while (x <= map->line_len)
         {
             mirror[y][x] = map->tiles[y][x];
             x++;

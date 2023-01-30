@@ -42,7 +42,7 @@ int     ft_strnchr(const char *s, int c)
 
 	count = 0;
 	while (s && *s != '\0')
-    {
+        {
 		s = ft_strchr(s, c);
 		if (!s)
 			return (count);
