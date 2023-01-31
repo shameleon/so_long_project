@@ -87,7 +87,7 @@ typedef struct	s_data
 	void	*mlx;
 	void	*win;
 	t_map   *map;
-    t_img   *img;
+    //t_img   *img;
     t_vect  player;
 }				t_data;
 
