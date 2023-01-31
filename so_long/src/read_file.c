@@ -36,7 +36,7 @@ int		count_lines(int fd, int len)
 		else
 			reading = 0;
 	}
-	if (nb_lines < 4 || nb_lines > (WINMAX_W / TILE_Y))
+	if (nb_lines < 4 || nb_lines > (WINMAX_H / TILE))
 		return (0);
 	return (nb_lines);
 }
@@ -111,7 +111,7 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 
 	if (argc != 2)
 		return (put_error("not exactly one file turned in"));
-	if (!valid_filename(argv[1], ".ber"))
+	if (!(valid_filename(argv[1], ".ber")))
 		return (put_error("input file is not a .ber file"));
 	fd = read_file_content(argv[1], d);
 	if (fd > 0)

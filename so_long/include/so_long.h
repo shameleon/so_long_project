@@ -15,7 +15,7 @@
 
 # define VALIDATE_MAP 1
 
-# define WINMAX_W 1600
+# define WINMAX_W 1800
 # define WINMAX_H 1200
 
 /* texture size */
@@ -51,17 +51,24 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
-# include "./minilibx/mlx.h"
+// X 11 x 2 and mlx
 
 //# define RSS_PATH "./maps/"
+typedef struct s_vect
+{
+    int     x;
+    int     y;
+    int     items_collected;
+}               t_vect;
 
 typedef struct	s_map
 {
 	char	**map;
 	int     line_len;
     int     nb_lines;
+    int     nb_collect;
+    int     nb_player;
+    int     nb_exit;
 }				t_map;
 
 typedef struct	s_img
@@ -81,8 +88,7 @@ typedef struct	s_data
 	void	*win;
 	t_map   *map;
     t_img   *img;
-    int     pl_x;
-    int     pl_y;
+    t_vect  player;
 }				t_data;
 
 /* libft_utils*/

@@ -1,0 +1,55 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/12/29 08:57:41 by jmouaike          #+#    #+#              #
+#    Updated: 2022/12/29 09:58:11 by jmouaike         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	= explo04
+SRCS	= explo04.c
+CC		= gcc -MD
+INCLIB	= minilibx_opengl
+CFLAGS	= -Wall -Werror -Wextra 
+CDEBUG = #-g3 -fsanitize=address
+
+# Mac OSX flags 
+LFLAGS 	= -lmlx -framework OpenGL -framework AppKit
+SHELL	=/bin/bash
+OS_NAME = $(shell uname -s)
+
+ifeq ($(OS_NAME), Linux)
+	LFLAGS	= -lmlx -lX11 -lXext -lm -lz
+endif
+
+#OBJD = obj
+
+all:	$(NAME)
+
+$(NAME):
+	$(CC) $(CFLAGS) $(CDEBUG) $(LFLAGS) $(SRCS) -I$(INCLIB) -L$(INCLIB) -o $@ 
+	# $(CC) $(SRCS) -I$(INCLIB) -L$(INCLIB) $(LFLAGS) -o $(NAME)
+#$(CC) $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) $(LMLX) -o $@
+
+# $(OBJ_PATH)/%.o:%.c
+#	@$(CC) $(CFLAGS) $(CDEBUG) -c $(SRCS) -o $@
+
+#obj_dir:
+#	@mkdir -p $(OBJd)
+
+clean:
+	@echo clean
+
+fclean: clean
+	rm -rf $(NAME)
+
+re:	clean all
+
+.PHONY : all clean fclean re
+
+# #-g3 -fsanitize=address
+# valgrind --leak-check=full --show-leak-kinds=all -s -q

@@ -44,7 +44,7 @@ char    **dup_map(t_map *map)
         put_error("memory allocation failed");
         return (NULL);
     }
-    while(map->tiles[y])
+    while(map->map[y])
     {
         mirror[y] = (char *)malloc(sizeof(*mirror));
         if (!mirror[y])
