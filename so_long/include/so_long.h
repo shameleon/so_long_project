@@ -54,12 +54,13 @@
 // X 11 x 2 and mlx
 
 //# define RSS_PATH "./maps/"
-typedef struct s_vect
+typedef struct s_play
 {
     int     x;
     int     y;
     int     items_collected;
-}               t_vect;
+    int     steps;
+}               t_play;
 
 typedef struct	s_map
 {
@@ -88,7 +89,7 @@ typedef struct	s_data
 	void	*win;
 	t_map   *map;
     //t_img   *img;
-    t_vect  player;
+    t_play  player;
 }				t_data;
 
 /* libft_utils*/
