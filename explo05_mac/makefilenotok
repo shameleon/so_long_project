@@ -34,7 +34,7 @@ $(NAME):
 	$(CC) $(CFLAGS) $(CDEBUG) $(LFLAGS) $(SRCS) -I$(INCLIB) -L$(INCLIB) -o $@ 
 	# $(CC) $(SRCS) -I$(INCLIB) -L$(INCLIB) $(LFLAGS) -o $(NAME)
 #$(CC) $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) $(LMLX) -o $@
-
+#$(OBJ_DIR)/%.o: $(SRC_DIR)%.c
 # $(OBJ_PATH)/%.o:%.c
 #	@$(CC) $(CFLAGS) $(CDEBUG) -c $(SRCS) -o $@
 

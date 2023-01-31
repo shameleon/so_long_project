@@ -53,6 +53,7 @@ int		pioneer_read(int fd)
 	while (rb > 0)
 	{
 		rb = read (fd, buff, 1);
+		// if rb == -1
 		if (rb != 1 || !*buff)
 			return (0);
 		if (buff[0] == '\n')
@@ -76,6 +77,7 @@ int		read_file_content(char *file, t_data *d)
 	if (fd > 0)
 	{	
 		d->map->line_len = pioneer_read(fd);
+		// if 
 		d->map->nb_lines = count_lines(fd, d->map->line_len);
 		printf("line_len=%d, nb_lines=%d\n", d->map->line_len, d->map->nb_lines);
 		if (!d->map->line_len || !d->map->nb_lines)
