@@ -112,12 +112,15 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 	int		fd;
 
 	if (argc != 2)
-		return (put_error("not exactly one file turned in"));
+		return (put_error("too many arguments, not exactly one file turned in"));
 	if (!(valid_filename(argv[1], ".ber")))
-		return (put_error("input file is not a .ber file"));
+		return (put_error("input file is not bearing a .ber extension"));
 	fd = read_file_content(argv[1], d);
 	if (fd > 0)
 	{
+		d->map = (t_map *)malloc (sizeof(t_map *));
+		if (!(d->map))
+			return (put_error("t_map dynamic memory allocation failed"));
 		parse_file(fd, d);
 		print_map(d->map->map);
 		if (VALIDATE_MAP)

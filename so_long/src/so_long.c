@@ -18,9 +18,8 @@ int		main(int argc, char **argv)
 	t_data	*d;
 
 	d = malloc (sizeof(t_data));
-	d->map = (t_map *)malloc (sizeof(t_map *));
 	if (!d)
-		return (put_error("dynamic memory allocation failed"));
+		return (put_error("t_data dynamic memory allocation failed"));
 	if (load_and_verify_map(d, argc, argv))
 		write (1, "map was successfully loaded and verified : [OK]\n", 48);
 	free_map(d->map->map, d->map->nb_lines - 1, 1);

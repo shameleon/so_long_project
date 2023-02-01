@@ -57,7 +57,7 @@ int     wallproofing(t_map *map)
     return (1);
 }
 
-/* writes error message on std out*/
+/* writes error message on std out, returns a (0)*/
 int     put_error(char *str)
 {
     ft_putendl("Error");
