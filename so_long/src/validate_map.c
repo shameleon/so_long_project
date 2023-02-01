@@ -27,7 +27,7 @@ int     map_content(t_map *map)
         while (map->map[y][x] != '\0')
         {
             if (!ft_strchr("01PCE", map->map[y][x]))
-                res *= 0; 
+                res *= 0;
             x++;
         }
         y++;
@@ -65,6 +65,7 @@ int     put_error(char *str)
     ft_putendl(str);
     return (0);
 }
+
 
 int     validate_map(t_data *d)
 {

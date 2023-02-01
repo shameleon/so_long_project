@@ -23,7 +23,7 @@ char	**free_map(char **map, int line, int all)
 	free(map);
 	map = NULL;
 	if (!all)
-		put_error("memory allocation failed, map cannot be loaded");
+		put_error("memory allocation failed : map cannot be loaded");
 	return (NULL);
 }
 

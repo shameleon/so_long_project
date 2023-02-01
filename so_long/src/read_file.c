@@ -36,7 +36,7 @@ int		count_lines(int fd, int len)
 		else
 			reading = 0;
 	}
-	if (nb_lines < 4 || nb_lines > (WINMAX_W / TILE_Y))
+	if (nb_lines < 4 || nb_lines > (WINMAX_H / TILE))
 		return (0);
 	return (nb_lines);
 }
@@ -53,6 +53,7 @@ int		pioneer_read(int fd)
 	while (rb > 0)
 	{
 		rb = read (fd, buff, 1);
+		// if rb == -1
 		if (rb != 1 || !*buff)
 			return (0);
 		if (buff[0] == '\n')
@@ -76,6 +77,7 @@ int		read_file_content(char *file, t_data *d)
 	if (fd > 0)
 	{	
 		d->map->line_len = pioneer_read(fd);
+		// if 
 		d->map->nb_lines = count_lines(fd, d->map->line_len);
 		printf("line_len=%d, nb_lines=%d\n", d->map->line_len, d->map->nb_lines);
 		if (!d->map->line_len || !d->map->nb_lines)
@@ -111,7 +113,7 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 
 	if (argc != 2)
 		return (put_error("not exactly one file turned in"));
-	if (!valid_filename(argv[1], ".ber"))
+	if (!(valid_filename(argv[1], ".ber")))
 		return (put_error("input file is not a .ber file"));
 	fd = read_file_content(argv[1], d);
 	if (fd > 0)

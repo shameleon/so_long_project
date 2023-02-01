@@ -14,8 +14,6 @@
 
 int    floodfill(char **mirror, int y, int x)
 {
-    write(1, "\n", 1);
-    print_map(mirror);
     // if (mirror[y][x] == 'E')
     //    return (1);
     if (mirror[y][x] == '0' || mirror[y][x] == 'C' 
@@ -41,16 +39,16 @@ char    **dup_map(t_map *map)
     mirror = (char **)malloc(sizeof(*mirror) * (map->nb_lines + 1));
     if (!mirror)
     {
-        put_error("memory allocation failed");
+        put_error("pathfinding : memory allocation failed");
         return (NULL);
     }
-    while(map->tiles[y])
+    while(map->map[y])
     {
         mirror[y] = (char *)malloc(sizeof(*mirror));
         if (!mirror[y])
             return (free_map(mirror, y, 0));
         x = 0;
-        while (x <= map->line_len)
+        while (x < map->line_len)
         {
             mirror[y][x] = map->map[y][x];
             x++;
@@ -67,5 +65,8 @@ int     pathfinder(t_map *map)
 
     mirror = dup_map(map);
     // player y, x
+    write(1, "\n", 1);
+    floodfill(mirror, 1, 5);
+    print_map(mirror);
     return (floodfill(mirror, 1, 5));
 }
