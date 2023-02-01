@@ -12,6 +12,28 @@
 
 #include "../include/so_long.h"
 
+/* counts E, P and C */
+int     check_map_count(char **map)
+{
+    int     y;
+    int     nb_player;
+    int     nb_nb_collect;
+    int     nb_exit;
+
+    y = 1;
+    nb = 0;
+    while (map[y])
+    {
+        nb_player += ft_strnchr(map[y], 'P');
+        nb_collect += ft_strnchr(map[y], 'C');
+        nb_exit += ft_strnchr(map[y], 'E');
+        y++;
+    }
+    if (nb_player != 0 || nb_collect != 0 || nb_exit != 0 )
+        return (0);
+    return (1);
+}
+
 int    floodfill(char **mirror, int y, int x)
 {
     // if (mirror[y][x] == 'E')
@@ -59,14 +81,19 @@ char    **dup_map(t_map *map)
     return (mirror);
 }
 
-int     pathfinder(t_map *map)
+int     pathfinder(t_data *d)
 {
     char    **mirror;
+    int     res;
 
-    mirror = dup_map(map);
-    // player y, x
+    res = 1;
+    mirror = dup_map(d->map);
     write(1, "\n", 1);
-    floodfill(mirror, 1, 5);
+    floodfill(mirror, d->player->y, d->player->x);
     print_map(mirror);
-    return (floodfill(mirror, 1, 5));
+    if (!check_map_count(char **mirror))
+        res = put_error("pathfinding : at least one collectible or exit is not reachable");
+    // free (mirror)
+    free_map(mirror, d->map->nb_lines - 1, 1);
+    return (res);
 }

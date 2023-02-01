@@ -12,6 +12,26 @@
 
 #include "../include/so_long.h"
 
+/* counts E, P and C */
+int     map_count(t_map *map)
+{
+    int     y;
+    char    *line;
+
+    y = 1;
+    while (map->map[y])
+    {
+        line = map->map[y];
+        map->nb_player += ft_strnchr(line, 'P');
+        map->nb_collect += ft_strnchr(line, 'C');
+        map->nb_exit += ft_strnchr(line, 'E');
+        y++;
+    }
+    if (map->nb_player != 1 || map->nb_collect == 0 || map->nb_exit != 1 )
+        return (0);
+    return (1);
+}
+
 /* checks that content is only 0, 1, E, P and C */
 int     map_content(t_map *map)
 {
@@ -23,6 +43,7 @@ int     map_content(t_map *map)
     res = 1;
     while (map->map[y])
     {
+
         x = 0;
         while (map->map[y][x] != '\0')
         {
@@ -77,8 +98,12 @@ int     validate_map(t_data *d)
         return (put_error ("map is not surrounded by walls"));
     res *= map_content(d->map);
     if (!res)
-        return (put_error ("map content is not valid"));
-    res *= pathfinder(d->map);
+        return (put_error ("map content is not valid, only 0,1,C,P,E are accepted"));
+    res *= map_count(d->map);
+    if (!res)./a
+        return (put_error ("map should contain exactly one player, \
+            one exit and at least one collectible"));
+    res *= pathfinder(d);
     if (!res)
         return (put_error ("map walls prevent player for reaching exit"));
     return (res);

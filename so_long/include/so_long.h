@@ -13,10 +13,11 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# define READ_FILE  1
 # define VALIDATE_MAP 1
 
-# define WINMAX_W 1800
-# define WINMAX_H 1200
+# define WINMAX_W 4000
+# define WINMAX_H 2000
 
 /* texture size */
 # define TILE 80
@@ -89,7 +90,7 @@ typedef struct	s_data
 	void	*win;
 	t_map   *map;
     //t_img   *img;
-    t_play  player;
+    t_play  *player;
 }				t_data;
 
 /* libft_utils*/
@@ -101,9 +102,10 @@ char    *ft_strrchr(const char *s, int c);
 void    ft_putendl(char *s);
 
 /* path_finding.c*/
+int     check_map_count(char **map);
 int     floodfill(char **mirror, int y, int x);
 char    **dup_map(t_map *map);
-int     pathfinder(t_map *map);
+int     pathfinder(t_data *map);
 
 /* validate_map.c*/
 int     map_content(t_map *map);
@@ -125,6 +127,6 @@ int		valid_filename(const char *file, char *extension);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
 /*   so_long.c     */
-int	main(int argc, char **argv);
+int     main(int argc, char **argv);
 
 #endif

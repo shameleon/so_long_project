@@ -83,11 +83,13 @@ int		read_file_content(char *file, t_data *d)
 		if (!d->map->line_len || !d->map->nb_lines)
 			return (put_error("file content is not valid"));
 		close (fd);
+		//if (!close (fd))
+		//	return (put_error("file cannot be closed"));
 		fd = open(file, O_RDONLY);
 		if (fd > 0)
 			return (fd);
 	}
-	return (put_error("Error\n#cannot open file\n"));
+	return (put_error("could not open file or file has an empty content."));
 }
 
 /* checks for a .ber file extension
@@ -115,12 +117,11 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 		return (put_error("too many arguments, not exactly one file turned in"));
 	if (!(valid_filename(argv[1], ".ber")))
 		return (put_error("input file is not bearing a .ber extension"));
+	if (!READ_FILE)
+		return(1);
 	fd = read_file_content(argv[1], d);
 	if (fd > 0)
 	{
-		d->map = (t_map *)malloc (sizeof(t_map *));
-		if (!(d->map))
-			return (put_error("t_map dynamic memory allocation failed"));
 		parse_file(fd, d);
 		print_map(d->map->map);
 		if (VALIDATE_MAP)
