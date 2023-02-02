@@ -90,4 +90,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
 char	*ft_strjoin_free(char *s1, char *s2);
 
+/************************/
+/* additional functions */
+/************************/
+int		ft_strnchr(const char *s, int c);
+char	**ft_free_split(char **strs);
+
 #endif

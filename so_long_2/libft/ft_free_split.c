@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 11:39:45 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/02 07:25:43 by jmouaike         ###   ########.fr       */
+/*   Created: 2023/02/02 07:10:52 by jmouaike          #+#    #+#             */
+/*   Updated: 2023/02/02 07:23:20 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+/* frees a char ** content */
+char	**ft_free_split(char **strs)
 {
-	unsigned int	len;
-	unsigned int	i;
-	char			*dst;
+	size_t	i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	dst = (char *)malloc (sizeof(*dst) * (len + 1));
-	if (!dst)
-		return (NULL);
 	i = 0;
-	while (i < ft_strlen(s1))
+	while (strs[i])
 	{
-		dst[i] = s1[i];
+		free (strs[i]);
 		i++;
 	}
-	while (i < len)
-	{
-		dst[i] = s2[i - ft_strlen(s1)];
-		i++;
-	}
-	dst[len] = '\0';
-	free (s1);
-	free (s2);
-	return (dst);
+	free (strs);
+	return (NULL);
 }

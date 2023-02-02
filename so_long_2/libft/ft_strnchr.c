@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 11:39:45 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/02 07:25:43 by jmouaike         ###   ########.fr       */
+/*   Created: 2023/02/02 07:04:04 by jmouaike          #+#    #+#             */
+/*   Updated: 2023/02/02 07:47:47 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+int	ft_strnchr(const char *s, int c)
 {
-	unsigned int	len;
-	unsigned int	i;
-	char			*dst;
+	int	count;
 
-	if (!s1 || !s2)
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	dst = (char *)malloc (sizeof(*dst) * (len + 1));
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (i < ft_strlen(s1))
+	count = 0;
+	while (s && *s != '\0')
 	{
-		dst[i] = s1[i];
-		i++;
+		if (*s == c)
+			count++;
+		s++;
 	}
-	while (i < len)
-	{
-		dst[i] = s2[i - ft_strlen(s1)];
-		i++;
-	}
-	dst[len] = '\0';
-	free (s1);
-	free (s2);
-	return (dst);
+	return (count);
 }
