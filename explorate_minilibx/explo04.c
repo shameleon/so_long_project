@@ -168,7 +168,9 @@ int     main(void)
 
     d = malloc (sizeof(t_data));
     load_map(d);
-    init_mlx(d);
+    if (init_mlx(d) != 0)
+        return (1);
+    // protect against $ env -i ./explo04
     // issue : put in a function and protect
     d->img.wall = mlx_xpm_file_to_image(d->mlx, "../so_long/rss/wall.xpm", &d->img.w, &d->img.h);
     d->img.floor = mlx_xpm_file_to_image(d->mlx, "../so_long/rss/floor.xpm", &d->img.w, &d->img.h);

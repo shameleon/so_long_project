@@ -100,7 +100,7 @@ int     validate_map(t_data *d)
     if (!res)
         return (put_error ("map content is not valid, only 0,1,C,P,E are accepted"));
     res *= map_count(d->map);
-    if (!res)./a
+    if (!res)
         return (put_error ("map should contain exactly one player, \
             one exit and at least one collectible"));
     res *= pathfinder(d);
