@@ -41,24 +41,25 @@ RM	= /bin/rm -f
 all: $(NAME)
 	
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
 	@$(RL) $(NAME)
+	@echo "making libft.a"
 
 .c.o: 
-	$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 bonus: $(OBJS_B)
-	$(AR) $(NAME) $^
+	@$(AR) $(NAME) $^
 	@$(RL) $(NAME)
 
 (OBJS_B): $(SRCS_B)
-	$(CC) $(FLAGS) -c $^ -o $@
+	@$(CC) $(FLAGS) -c $^ -o $@
 
 clean:
-	$(RM) $(OBJS) $(OBJS_B)
+	@$(RM) $(OBJS) $(OBJS_B)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
