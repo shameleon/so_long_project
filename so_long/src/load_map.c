@@ -33,7 +33,7 @@ char	*process_line(char *line, int *len)
 	while (line[*len] && line[*len] != '\n')
 		*len += 1;
 	if (*len <= MIN_MAP_SIZE)
-		return (NULL);      //map is to small
+		return (NULL); //"map is to small", 1);
 	if (line[*len] == '\n')
 	{
 		pure_line = ft_substr(line, 0, *len);
@@ -61,11 +61,11 @@ int		ft_lst_fixline(t_data *d)
 	{
 		node->content = (void *)process_line((char*)(node->content), &len);
 		if (!(node->content))
-			return (put_error("linked list line : memory allocation failed"));
+			outbound(d, "list memory allocation failed or map too small", 2);
 		if (node == d->lst)
 			d->line_len = len;
 		else if (len != d->line_len)
-			return (put_error("map must be rectangular"));
+			outbound(d, "map must be rectangular", 2);
 		node = node->next;
 	}
 	return (1);
@@ -86,7 +86,7 @@ int		ft_lst_readlines(t_data *d, int fd)
 		{
 			new = ft_lstnew((void *)line);
 			if (!new)
-				return (put_error("linked list : memory allocation failed"));
+				outbound(d, "linked list : memory allocation failed", 1);
 			ft_lstadd_back(&d->lst, new);
 		}
 		d->nb_lines += 1;
@@ -116,16 +116,15 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 	int		fd;
 
 	if (argc != 2)
-		return (put_error("too many arguments, \
-									not exactly one file turned in"));
+		outbound(d, "too many arguments, not exactly one file turned in", 1);
 	if (!(valid_filename(argv[1], ".ber")))
-		return (put_error("input file need to have a .ber extension"));
+		outbound(d, "input file need to have a .ber extension", 1);
     fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-        return (put_error("input file could not be opened"));
+		outbound(d, "input file could not be opened", 1);
     if (!ft_lst_readlines(d, fd))
-		return (put_error("file is either not readable or empty content or memory could not be allocated"));
+		outbound(d, "file not readable, empty or memory allocated", 2);
 	if (!ft_lst_fixline(d))
-		return (put_error("file lines too short. memory could not be allocated"));
+		outbound(d, "file lines too short. memory could not be allocated", 2);
     return (1);
 }

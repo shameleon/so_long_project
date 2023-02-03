@@ -54,6 +54,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <string.h>
 # include "../libft/libft.h"
 
 // X 11 x 2 and mlx
@@ -74,6 +75,12 @@ int     put_error(char *str);
 void	print_map(char **map);
 void    print_list(t_list *lst, char *name);
 
+/* outbound.c  */
+int     destruct_data(t_data *d);
+int     outbound(t_data *d, char *mssg, int err_code);
+
+/* check_map.c */
+
 /* load_map.c  */
 char	*process_line(char *line, int *len);
 int		ft_lst_fixline(t_data *d);
@@ -82,6 +89,7 @@ int		valid_filename(const char *file, char *pattern);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
 /*   so_long.c  */
+int		init_data(t_data *d);
 int     main(int argc, char **argv);
 
 #endif

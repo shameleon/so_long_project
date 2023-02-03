@@ -12,12 +12,12 @@
 
 #include "../include/so_long.h"
 
-/* writes error message on std out, returns a (0)*/
+/* writes error message on std_err, returns a (0)*/
 int     put_error(char *str)
 {
-    ft_putendl_fd("Error", 1);
+    ft_putendl_fd("Error", 2);
     write(1, "# ", 2);
-    ft_putendl_fd(str, 1);
+    ft_putendl_fd(str, 2);
     return (0);
 }
 

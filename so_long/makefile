@@ -15,6 +15,7 @@ NAME		= so_long
 INCL_DIR	= ./include/
 SRC_DIR		= ./src/
 SRC_FILES	= so_long.c load_map.c so_long_utils.c \
+			 check_map.c outbound.c \
 
 SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 
@@ -70,5 +71,6 @@ norm:
 .PHONY: all clean fclean re norm 
 
 # #-g3 -fsanitize=address
-# valgrind --leak-checmakek=full --show-leak-kinds=all -s -q
+# valgrind --leak-check=full 
 #  $ env -i <votre-executable>
+# https://makefiletutorial.com/#interrupting-or-killing-make
