@@ -23,3 +23,8 @@ int		main(int argc, char **argv)
 	ft_lstclear(&(d.lst), free);
 	return (0);
 }
+
+/* 
+ gcc -Wall -Werror -Wextra ./src/so_long.c ./src/load_map.c 
+ ./src/so_long_utils.c -I ./include/ -I ./libft/ -L ./libft/ -lft  -o so_long
+*/

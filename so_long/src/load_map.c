@@ -47,12 +47,14 @@ char	*process_line(char *line, int *len)
 
 /* iterates through linked-list, check content 
 - verify if line contains a trailing \n and removes it 
-returns line length without the eventual /n left by GNL */
+- checks if line length is the same which means rectangular shape
+ */
 int		ft_lst_fixline(t_data *d)
 {
 	int		len;
 	t_list	*node;
 
+	d->line_len = 0;
 	len = 0;
 	node = d->lst;
 	while (node)
@@ -60,6 +62,10 @@ int		ft_lst_fixline(t_data *d)
 		node->content = (void *)process_line((char*)(node->content), &len);
 		if (!(node->content))
 			return (put_error("linked list line : memory allocation failed"));
+		if (node == d->lst)
+			d->line_len = len;
+		else if (len != d->line_len)
+			return (put_error("map must be rectangular"));
 		node = node->next;
 	}
 	return (1);

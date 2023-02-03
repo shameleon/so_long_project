@@ -32,7 +32,7 @@ void    print_list(t_list *lst, char *name)
                 lst = lst->next;
         }
         printf ("%p\n", lst);     // last element pointing to ...
-        printf ("\n\n");
+        printf ("\n");
 }
 
 void	print_map(char **map)
