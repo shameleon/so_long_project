@@ -17,29 +17,57 @@
 {
 
 }
+void	ft_lst_check_line()
 */
-int		map_shape(t_data *d)
+
+/* generates a substring if a GNL-produced line ends with a '\n'.
+line length '*len' is also determined, without the final '\n'
+and checked idf not too small */
+char	*process_line(char *line, int *len)
+{
+	char	*pure_line;
+
+	*len = 0; 
+	if (!line)
+		return (NULL);
+	while (line[*len] && line[*len] != '\n')
+		*len += 1;
+	if (*len <= MIN_MAP_SIZE)
+		return (NULL);      //map is to small
+	if (line[*len] == '\n')
+	{
+		pure_line = ft_substr(line, 0, *len);
+		free (line);
+		if (!pure_line)
+			return (NULL); // pure line : memory allocation failed
+		return (pure_line);
+	}
+	return (line);
+}
+
+/* iterates through linked-list, check content 
+- verify if line contains a trailing \n and removes it 
+returns line length without the eventual /n left by GNL */
+int		ft_lst_fixline(t_data *d)
 {
 	int		len;
-	t_list	node;
+	t_list	*node;
 
 	len = 0;
 	node = d->lst;
 	while (node)
 	{
-		while (node->content)
-		ft_strnchr((char *)(node->content), 'P');
-		ft_strlen(node->content);
+		node->content = (void *)process_line((char*)(node->content), &len);
+		if (!(node->content))
+			return (put_error("linked list line : memory allocation failed"));
 		node = node->next;
 	}
-	return ();
+	return (1);
 }
-
-int		ft_lst_readlines(t_data *d, int fd)
 
 /* reads with get_next_line() into a linked-list
 each node contains string ending with a \n */
-int	ft_lst_readlines(t_data *d, int fd)
+int		ft_lst_readlines(t_data *d, int fd)
 {
 	char	*line;
 	t_list	*new;
@@ -48,17 +76,22 @@ int	ft_lst_readlines(t_data *d, int fd)
 	while (d->nb_lines == -1 || line != NULL)
 	{
 		line = get_next_line(fd);
-		if (line)
+		if (line && ft_strlen(line) > MIN_MAP_SIZE)
 		{
 			new = ft_lstnew((void *)line);
+			if (!new)
+				return (put_error("linked list : memory allocation failed"));
 			ft_lstadd_back(&d->lst, new);
 		}
 		d->nb_lines += 1;
 	}
-	//printf("%d\n", d->nb_lines);
-	return (nb_lines > 0);
+	if (d->nb_lines < MIN_MAP_SIZE)
+		return (0);
+	return (1);
 }
 
+/* verifies if filename has a .ber extension returns 1.
+returns 0 otherwise*/
 int		valid_filename(const char *file, char *pattern)
 {
 	char	*ext;
@@ -71,7 +104,7 @@ int		valid_filename(const char *file, char *pattern)
 	return (1);
 }
 
-/* starting point to load map */
+/* starting point to load map from .ber file */
 int		load_and_verify_map(t_data *d, int argc, char **argv)
 {
 	int		fd;
@@ -84,9 +117,9 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
         return (put_error("input file could not be opened"));
-    if (!ft_lst_readlines(d, fd));
-		return (put_error("file is either not readable or has an empty \
-		 					content or memory could not be allocated"));
-	map_shape(d);
+    if (!ft_lst_readlines(d, fd))
+		return (put_error("file is either not readable or empty content or memory could not be allocated"));
+	if (!ft_lst_fixline(d))
+		return (put_error("file lines too short. memory could not be allocated"));
     return (1);
 }

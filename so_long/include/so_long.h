@@ -16,6 +16,8 @@
 # define READ_FILE  1
 # define VALIDATE_MAP 1
 
+# define MIN_MAP_SIZE 4
+
 # define WINMAX_W 4000
 # define WINMAX_H 2000
 
@@ -73,8 +75,9 @@ void	print_map(char **map);
 void    print_list(t_list *lst, char *name);
 
 /* load_map.c  */
-int		map_shape(t_data *d);
-void	ft_lst_readlines(t_data *d, int fd);
+char	*process_line(char *line, int *len);
+int		ft_lst_fixline(t_data *d);
+int		ft_lst_readlines(t_data *d, int fd);
 int		valid_filename(const char *file, char *pattern);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
