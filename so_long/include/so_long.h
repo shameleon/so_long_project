@@ -85,6 +85,11 @@ void    print_list(t_list *lst, char *name);
 int     destruct_data(t_data *d);
 int     outbound(t_data *d, char *mssg, int err_code);
 
+/* pathfinding.c */
+int     check_map_count(char **map, char *charset);
+int		floodfill(char **mirror, int y, int x);
+int		pathfinder(t_data *d);
+
 /* check_map.c */
 char	**ft_lst_split(t_data *d);
 void	charset_and_wallproofing(t_data *d, char *line, int   y);

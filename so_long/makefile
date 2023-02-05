@@ -15,7 +15,7 @@ NAME		= so_long
 INCL_DIR	= ./include/
 SRC_DIR		= ./src/
 SRC_FILES	= so_long.c load_map.c so_long_utils.c \
-			 check_map.c outbound.c \
+			 check_map.c outbound.c pathfinding.c \
 
 SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 

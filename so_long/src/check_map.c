@@ -107,6 +107,4 @@ void    check_content(t_data *d)
     d->map = ft_lst_split(d);
     if (!d->map)
         outbound(d, "map memory allocation failed", 2);
-    print_map(d->map);
-    //res *= pathfinder(d);
 }
