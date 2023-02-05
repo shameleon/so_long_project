@@ -21,15 +21,16 @@ int     destruct_data(t_data *d)
         ft_lstclear(&(d->lst), free);
     if (d->map)
         ft_free_split(d->map);
+    if (d->win)
+        mlx_destroy_window(d->mlx, d->win);
+    if (d->mlx)
+        mlx_destroy_display(d->mlx);
+    free(d->mlx);
     return (1);
 }
 
-/* 
-- print errors
-*/
-
-
-/* handles game exit : cleans free and destroy 
+/*
+handles game exit : cleans free and destroy 
 - returns 1 if error
 - returns 0 if exit is end of game
 err_code = 0 : destruct data and exit (0)

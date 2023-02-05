@@ -48,18 +48,30 @@
 /* Colors */
 # define BLUE 0x000000FF
 
-//# include "mlx.h"
-//# include "libft.h"
+/* librairies */
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <string.h>
 # include "../libft/libft.h"
-
-// X 11 x 2 and mlx
+#include <X11/X.h>
+#include <X11/keysym.h>
+#include "../minilibx/mlx.h"
 
 //# define RSS_PATH "./maps/"
+
+typedef struct  s_img
+{
+	void	*wall;
+    void    *floor;
+    void    *player;
+    void    *collect;
+	void    *exit1;
+    void    *exit0;
+    int     w;
+    int     h;
+}               t_img;
 
 typedef struct	s_data
 {
@@ -74,6 +86,7 @@ typedef struct	s_data
 	int		nb_collect;
 	int		player_x;
 	int		player_y;
+	t_img   img;
 }				t_data;
 
 /* so_long_utils.c  */
@@ -102,7 +115,10 @@ int		ft_lst_readlines(t_data *d, int fd);
 int		valid_filename(const char *file, char *pattern);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
+/* rendering.c */
+
 /*   so_long.c  */
+void	load_sprites(t_data *d);
 int		init_data(t_data *d);
 int     main(int argc, char **argv);
 
