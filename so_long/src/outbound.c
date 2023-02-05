@@ -19,6 +19,8 @@ int     destruct_data(t_data *d)
 {
     if (d->lst)
         ft_lstclear(&(d->lst), free);
+    if (d->map)
+        ft_free_split(d->map);
     return (1);
 }
 

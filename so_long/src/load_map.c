@@ -13,6 +13,10 @@
 #include "../include/so_long.h"
 
 /* 
+reads from file -> load map into a linked-list -> trim trailing /n 
+-> checks for rectangular shape.
+*/
+/* 
 generates a substring if a GNL-produced line ends with a '\n'.
 line length '*len' is also determined, without the final '\n'
 and checked idf not too small
@@ -46,7 +50,6 @@ int		ft_lst_fixline(t_data *d)
 	int		len;
 	t_list	*node;
 
-	d->line_len = 0;
 	len = 0;
 	node = d->lst;
 	while (node)
@@ -72,7 +75,6 @@ int		ft_lst_readlines(t_data *d, int fd)
 	char	*line;
 	t_list	*new;
 
-	d->nb_lines = 0;
 	while (d->nb_lines == 0 || ft_strchr(line, '\n'))
 	{
 		line = get_next_line(fd);

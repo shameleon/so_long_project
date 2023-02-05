@@ -19,6 +19,12 @@ int		init_data(t_data *d)
 	d->lst = NULL;
 	d->nb_lines = 0;
 	d->line_len = 0;
+	d->map = NULL;
+	d->nb_player = 0;
+	d->nb_exit = 0;
+	d->nb_collect = 0;
+	d->player_x = 0;
+	d->player_y = 0;
 	return(0);
 }
 

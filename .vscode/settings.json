@@ -3,6 +3,8 @@
         "map.h": "c",
         "stdio.h": "c",
         "fcntl.h": "c",
-        "so_long.h": "c"
+        "so_long.h": "c",
+        "stdlib.h": "c",
+        "libft.h": "c"
     }
 }

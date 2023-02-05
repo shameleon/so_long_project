@@ -17,7 +17,7 @@
 # define VALIDATE_MAP 1
 
 # define MIN_MAP_SIZE 4
-
+# define MAP_SET "01PCE"
 # define WINMAX_W 4000
 # define WINMAX_H 2000
 
@@ -68,6 +68,12 @@ typedef struct	s_data
 	t_list	*lst;
 	int		nb_lines;
 	int		line_len;
+	char	**map;
+	int		nb_player;
+	int		nb_exit;
+	int		nb_collect;
+	int		player_x;
+	int		player_y;
 }				t_data;
 
 /* so_long_utils.c  */
@@ -80,6 +86,9 @@ int     destruct_data(t_data *d);
 int     outbound(t_data *d, char *mssg, int err_code);
 
 /* check_map.c */
+char	**ft_lst_split(t_data *d);
+void	charset_and_wallproofing(t_data *d, char *line, int   y);
+void    check_content(t_data *d);
 
 /* load_map.c  */
 char	*trim_eol(char *line, int *len);
