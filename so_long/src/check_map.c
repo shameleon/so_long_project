@@ -17,12 +17,23 @@ checks map contents. at this stage map must be rectangular, minimum sized
 */
 
 /* copies linked-list contents into a char ** array*/
+static char	*fill_word(char *s, unsigned int wlen)
+{
+	char	*word;
+
+	word = (char *)malloc (sizeof(*word) * (wlen + 1));
+	if (word == NULL)
+		return (NULL);
+	ft_memcpy(word, s, wlen);
+	word[wlen] = '\0';
+	return (word);
+}
+
 char	**ft_lst_split(t_data *d)
 {
     t_list  *node;
     char    **map;
     int     y;
-    int     x;
 
     node = d->lst;
     map = (char **)malloc(sizeof(*map) * (d->nb_lines + 1));
@@ -31,18 +42,14 @@ char	**ft_lst_split(t_data *d)
     y = 0;
     while (y < d->nb_lines)
     {
-        x = 0;
-        while(x < line_len)
-        {
-            map[y][x] = node->content[i];
-            x++;
-        }
-        map[y][d->line_len] = '\0';
+        map[y] = fill_word(node->content, (unsigned int)d->line_len);
+        if (!map[y])
+            outbound(d, "map memory allocation failed", 2);
         y++;
         node = node->next;
     }
     map[d->nb_lines] = NULL;
-    return(map)
+    return(map);
 }
 
 /*
@@ -55,7 +62,7 @@ void	charset_and_wallproofing(t_data *d, char *line, int   y)
     int     x;
 
     x = 0;
-    if (line[x] != '1' || line[x->line_len - 1] != '1')
+    if (line[x] != '1' || line[d->line_len - 1] != '1')
         outbound(d, "map must be surrounded by walls", 2);
     while(line[x])
     { 

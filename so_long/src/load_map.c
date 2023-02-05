@@ -57,7 +57,7 @@ int		ft_lst_fixline(t_data *d)
 		node->content = (void *)trim_eol((char*)(node->content), &len);
 		if (!(node->content))
 			outbound(d, "FIX : list memory allocation failed", 2);
-		if (len <= MIN_MAP_SIZE)
+		if (len < MIN_MAP_SIZE)
 			outbound(d, "FIX : input map width is too small", 2);
 		if (node == d->lst)
 			d->line_len = len;
@@ -80,7 +80,7 @@ int		ft_lst_readlines(t_data *d, int fd)
 		line = get_next_line(fd);
 		if (!line)
 			outbound(d, "GNL : file unreadable has empty content", 2);
-		else if ( ft_strlen(line) <= MIN_MAP_SIZE)
+		else if ( ft_strlen(line) < MIN_MAP_SIZE)
 			outbound(d, "GNL : file containing line width too small", 2);
 		else
 		{
