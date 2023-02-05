@@ -28,6 +28,7 @@ int		main(int argc, char **argv)
 
 	init_data(&d);
 	load_and_verify_map(&d, argc, argv);
+	check_content(&d);
 	print_list(d.lst, "linked list");
 	outbound(&d, "EXIT after success", 0);
 	return (0);

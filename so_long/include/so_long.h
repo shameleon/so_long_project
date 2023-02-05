@@ -82,7 +82,7 @@ int     outbound(t_data *d, char *mssg, int err_code);
 /* check_map.c */
 
 /* load_map.c  */
-char	*process_line(char *line, int *len);
+char	*trim_eol(char *line, int *len);
 int		ft_lst_fixline(t_data *d);
 int		ft_lst_readlines(t_data *d, int fd);
 int		valid_filename(const char *file, char *pattern);

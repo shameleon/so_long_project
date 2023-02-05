@@ -16,7 +16,7 @@
 int     put_error(char *str)
 {
     ft_putendl_fd("Error", 2);
-    write(1, "# ", 2);
+    write(2, "# ", 2);
     ft_putendl_fd(str, 2);
     return (0);
 }

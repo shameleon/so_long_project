@@ -30,6 +30,9 @@ int     destruct_data(t_data *d)
 /* handles game exit : cleans free and destroy 
 - returns 1 if error
 - returns 0 if exit is end of game
+err_code = 0 : destruct data and exit (0)
+err_code = 1 : no destruct and exit (1)
+err_code = 2 : destruct and exit (1)
 */
 int     outbound(t_data *d, char *mssg, int err_code)
 {
