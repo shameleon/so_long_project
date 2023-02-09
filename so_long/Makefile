@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/10 07:46:22 by jmouaike          #+#    #+#              #
-#    Updated: 2023/01/10 07:46:28 by jmouaike         ###   ########.fr        #
+#    Updated: 2023/02/06 10:29:00 by jmouaike         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_FILES	= so_long.c load_map.c so_long_utils.c \
 SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 
 # minilibx
-MLX_DIR		= ./minilibx/
+MLX_DIR		= ./minilibx-linux-master/
 LIB_MLX		= $(addprefix $(MLX_DIR), libmlx.a)
 
 # Libft
@@ -46,8 +46,8 @@ LFLAGS_MLX		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
 all:	$(NAME)	
 
 $(NAME): $(LIB_LFT) $(LIB_MLX)
-#	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
-	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(LFLAGS_LFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
+#	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(LFLAGS_LFT) -o $(NAME)
 	@echo making so_long executable [OK]
 
 $(LIB_LFT):
@@ -77,7 +77,12 @@ norm:
 
 .PHONY: all clean fclean re norm 
 
-# #-g3 -fsanitize=address
+# DEBUG = -g3 -fsanitize=address
 # valgrind --leak-check=full 
 #  $ env -i <votre-executable>
 # https://makefiletutorial.com/#interrupting-or-killing-make
+#
+# gcc -Wall -Werror -Wextra ./src/so_long.c ./src/load_map.c ./src/so_long_utils.c ./src/check_map.c
+# ./src/outbound.c ./src/pathfinding.c -I ./include/ -I ./libft/ -I ./minilibx-linux-master -L ./libft/ -lft 
+# -L ./minilibx-linux-master -lmlx -lX11 -lXext -lm -lz   -o so_long
+
