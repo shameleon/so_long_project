@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <X11/X.h>
 #include <X11/keysym.h>
-#include "./minilibx/mlx.h"
+#include "../so_long/minilibx-linux-master/mlx.h"
 
 #define WIN_W 1024
 #define WIN_H 514

@@ -13,7 +13,7 @@
 #include "../include/so_long.h"
 int		init_game_data(t_data *d)
 {
-	d->map = (t_map *)malloc (sizeof(t_map *) * 2);
+	d->map = (t_map *)malloc (sizeof(t_map *)); //*2
 	if (!(d->map))
 		return (put_error("t_map dynamic memory allocation failed"));
 	d->player = (t_play *)malloc (sizeof(t_play *));

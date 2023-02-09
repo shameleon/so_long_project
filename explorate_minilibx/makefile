@@ -13,14 +13,14 @@
 NAME	= explo04
 SRC		= explo04.c
 CC		= clang
-INCLIB	= minilibx
+INCLIB	= ./
 CFLAGS	= -Wall -Werror -Wextra 
 LFLAGS	= -lmlx -lX11 -lXext -lm -lz
 
 all:	$(NAME)
 
 $(NAME):
-	$(CC) $(SRC) -I$(INCLIB) -L$(INCLIB) $(LFLAGS) -o $(NAME)
+	$(CC) $(SRC) -I$(INCLIB) -L$(INCLIB) $(LFLAGS) -o $(NAME) -g3
 
 clean:
 	rm -rf $(NAME)
