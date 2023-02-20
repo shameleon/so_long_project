@@ -13,11 +13,16 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+/* flags */
 # define READ_FILE  1
 # define VALIDATE_MAP 1
+# define PRINT_PATHFINDER 1
 
+/* map */
 # define MIN_MAP_SIZE 4
 # define MAP_SET "01PCE"
+
+/* window maximum size */
 # define WINMAX_W 4000
 # define WINMAX_H 2000
 
@@ -35,7 +40,7 @@
 # define XPM_FLOOR "../rss/floor.xpm"
 # define XPM_PLAYER "../rss/player.xpm"
 # define XPM_COLLECT "../rss/collectible1.xpm"
-# define XPM_EXIT0 "../rss/exit.xpm"
+# define XPM_EXIT0 "../rss/exit_close.xpm"
 # define XPM_EXIT1 "../rss/exit_open2.xpm"
 
 /* keyboard keys Linux */
@@ -116,8 +121,12 @@ int		valid_filename(const char *file, char *pattern);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
 /* rendering.c */
+int    player_moves(t_data *d, int i, int j);
+int     game_controls(int KeySym, t_data *d);
+int     display_map(t_data *d);
 
 /*   so_long.c  */
+int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);
 int     main(int argc, char **argv);

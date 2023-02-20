@@ -12,6 +12,17 @@
 
 #include "../include/so_long.h"
 
+int		init_mlx(t_data *d)
+{
+	d->mlx = mlx_init();
+    if (d->mlx == NULL)
+        outbound(d, "MLX library initiation failure", 2);
+    d->win = mlx_new_window(d->mlx, TILE * d->line_len, TILE * d->nb_lines, WIN_TITLE);
+    if (d->win == NULL)
+		outbound(d, "MLX library could not open window", 2);
+	return (0);
+}
+
 void	load_sprites(t_data *d)
 {
 	d->img.wall = mlx_xpm_file_to_image(d->mlx, XPM_WALL, &d->img.w, &d->img.h);
@@ -34,12 +45,6 @@ int		init_data(t_data *d)
 	d->nb_collect = 0;
 	d->player_x = 0;
 	d->player_y = 0;
-	d->mlx = mlx_init();
-    if (d->mlx == NULL)
-        outbound(d, "MLX library initiation failure", 2);
-    d->win = mlx_new_window(d->mlx, TILE * d->line_len, TILE * d->nb_lines, WIN_TITLE);
-    if (d->win == NULL)
-		outbound(d, "MLX library initiation failure", 2);
 	return(0);
 }
 
@@ -53,6 +58,11 @@ int		main(int argc, char **argv)
 	check_content(&d);
 	pathfinder(&d);
 	load_sprites(&d);
+	init_mlx(&d);
+	display_map(&d);
+    mlx_hook(d.win, 2, 1L<<0, game_controls, &d);
+    //mlx_mouse_hook(d->win, mouse_hook, d);
+    mlx_loop(d.mlx);
 	outbound(&d, "EXIT after success", 0);
 	return (0);
 }

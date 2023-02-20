@@ -36,12 +36,9 @@ int     check_map_count(char **map, char *charset)
 
 int     floodfill(char **mirror, int y, int x)
 {
-    // if (mirror[y][x] == 'E')
-    //    return (1);
     if (mirror[y][x] == '0' || mirror[y][x] == 'C' 
     || mirror[y][x] == 'P' || mirror[y][x] == 'E')
     {
-        // if (mirror [y][x] != 'F')
         mirror[y][x] = '+';
         floodfill(mirror, y, x + 1);
         floodfill(mirror, y + 1, x);
@@ -53,12 +50,15 @@ int     floodfill(char **mirror, int y, int x)
 
 /* 
 initiates pathfinding on d->map 
+if pathfinding result is fine, copies linked-list data into an char ** array 
 */
 int     pathfinder(t_data *d)
 {
     floodfill(d->map, d->player_y, d->player_x);
-    print_map(d->map);
+    if (PRINT_PATHFINDER)
+        print_map(d->map);
     if (check_map_count(d->map, "PCE") > 0)
         outbound(d, "all collectibles and exit might not be reachable", 2);
+    d->map = ft_lst_split(d);
     return (0);
 }

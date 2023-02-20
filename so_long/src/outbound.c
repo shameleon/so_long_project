@@ -25,7 +25,7 @@ int     destruct_data(t_data *d)
         mlx_destroy_window(d->mlx, d->win);
     if (d->mlx)
         mlx_destroy_display(d->mlx);
-    free(d->mlx);
+    //free(d->mlx);
     return (1);
 }
 
@@ -33,9 +33,9 @@ int     destruct_data(t_data *d)
 handles game exit : cleans free and destroy 
 - returns 1 if error
 - returns 0 if exit is end of game
-err_code = 0 : destruct data and exit (0)
-err_code = 1 : no destruct and exit (1)
-err_code = 2 : destruct and exit (1)
+err_code = 0 : end of game, destruct data and exit (0)
+err_code = 1 : no destruct, error message and exit (1)
+err_code = 2 : destruct, error message and exit (1)
 */
 int     outbound(t_data *d, char *mssg, int err_code)
 {

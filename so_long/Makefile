@@ -16,6 +16,7 @@ INCL_DIR	= ./include/
 SRC_DIR		= ./src/
 SRC_FILES	= so_long.c load_map.c so_long_utils.c \
 			 check_map.c outbound.c pathfinding.c \
+			 rendering.c \
 
 SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 
@@ -39,6 +40,10 @@ LFLAGS_LFT	= -L $(LFT_DIR) -lft
 # mlx (Linux)
 LFLAGS_MLX		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
 
+# colors
+G		= "\33[92m"
+RES		= "\33[0m"
+
 # ########################## #
 #      Makefile rules        #
 # ########################## #
@@ -46,18 +51,18 @@ LFLAGS_MLX		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
 all:	$(NAME)	
 
 $(NAME): $(LIB_LFT) $(LIB_MLX)
-	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME) -g3
 #	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(LFLAGS_LFT) -o $(NAME)
-	@echo making so_long executable [OK]
+	@echo $(G) making so_long executable [OK]  $(RES) 
 
 $(LIB_LFT):
 	@make -C $(LFT_DIR) all
 	@make -C $(LFT_DIR) bonus
-	@echo making libft.a including bonus [OK]
+	@echo  $(G) making libft.a including bonus [OK] $(RES) 
 
 $(LIB_MLX):
 	@make -C $(MLX_DIR) all
-	@echo making libmlx.a [OK]
+	@echo $(G) making libmlx.a [OK] $(RES) 
 
 clean:
 	@make -C $(LFT_DIR) clean
@@ -85,4 +90,3 @@ norm:
 # gcc -Wall -Werror -Wextra ./src/so_long.c ./src/load_map.c ./src/so_long_utils.c ./src/check_map.c
 # ./src/outbound.c ./src/pathfinding.c -I ./include/ -I ./libft/ -I ./minilibx-linux-master -L ./libft/ -lft 
 # -L ./minilibx-linux-master -lmlx -lX11 -lXext -lm -lz   -o so_long
-

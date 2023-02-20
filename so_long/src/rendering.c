@@ -1,26 +1,35 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendering.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/20 16:30:16 by jmouaike          #+#    #+#             */
+/*   Updated: 2023/02/20 16:30:26 by jmouaike         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/so_long.h"
-
 
 int    player_moves(t_data *d, int i, int j)
 {
     int     y;
     int     x;
 
-    y = d->pl_y + i;
-    x = d->pl_x + j;
-    printf("%d, %d => %d, %d \n ", d->pl_y, d->pl_x, y, x);
-    if (d->map.map[y][x]  == '1')
+    y = d->player_y + i;
+    x = d->player_x + j;
+    printf("%d, %d => %d, %d \n ", d->player_y, d->player_x, y, x);
+    if (d->map[y][x]  == '1')
         return (0);
-    else if (d->map.map[y][x] != '1')
+    else if (d->map[y][x] != '1')
     {
-        mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->pl_x * TILE, d->pl_y * TILE);
+        mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->player_x * TILE, d->player_y * TILE);
         //d->map.map[d->pl_y][d->pl_x] = '0';
         mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE, y * TILE);
         //d->map.map[y][x] = 'P';
-        d->pl_y += i;
-        d->pl_x += j;
+        d->player_y += i;
+        d->player_x += j;
         //|| d->map.map[y][x] == 'C'
         mlx_string_put(d->mlx, d->win, 20, 20, 0x000000FF, "move");
         return (1);
@@ -49,24 +58,24 @@ int     display_map(t_data *d)
     int     x;
 
     y = 0;
-    while (d->map.map[y])
+    while (d->map[y])
     {
         x = 0;
-        while (d->map.map[y][x] != '\0')
+        while (d->map[y][x] != '\0')
         {
-            if(d->map.map[y][x] == '1')
+            if(d->map[y][x] == '1')
                 mlx_put_image_to_window(d->mlx, d->win, d->img.wall, x * TILE, y * TILE);
-            else if(d->map.map[y][x] == '0')
+            else if(d->map[y][x] == '0')
                 mlx_put_image_to_window(d->mlx, d->win, d->img.floor, x * TILE, y * TILE);
-            else if(d->map.map[y][x] == 'E')
-                mlx_put_image_to_window(d->mlx, d->win, d->img.exit, x * TILE, y * TILE);
-            else if(d->map.map[y][x] == 'C')
+            else if(d->map[y][x] == 'E')
+                mlx_put_image_to_window(d->mlx, d->win, d->img.exit0, x * TILE, y * TILE);
+            else if(d->map[y][x] == 'C')
                 mlx_put_image_to_window(d->mlx, d->win, d->img.collect, x * TILE, y * TILE);
-            else if(d->map.map[y][x] == 'P')
+            else if(d->map[y][x] == 'P')
             {
                 mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE , y * TILE);
-                d->pl_x = x;
-                d->pl_y = y;
+                d->player_x = x;
+                d->player_y = y;
             }
             x++;
         }
