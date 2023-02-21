@@ -13,10 +13,6 @@
 #include "../include/so_long.h"
 
 /* 
-reads from file -> load map into a linked-list -> trim trailing /n 
--> checks for rectangular shape.
-*/
-/* 
 generates a substring if a GNL-produced line ends with a '\n'.
 line length '*len' is also determined, without the final '\n'
 and checked idf not too small
@@ -43,7 +39,7 @@ char	*trim_eol(char *line, int *len)
 
 /* iterates through linked-list, check content 
 - verify if line contains a trailing \n and removes it 
-- checks if line length is the same which means rectangular shape
+- checks line length and rectangular shape
  */
 int		ft_lst_fixline(t_data *d)
 {
@@ -56,20 +52,22 @@ int		ft_lst_fixline(t_data *d)
 	{
 		node->content = (void *)trim_eol((char*)(node->content), &len);
 		if (!(node->content))
-			outbound(d, "FIX : list memory allocation failed", 2);
-		if (len < MIN_MAP_SIZE)
-			outbound(d, "FIX : input map width is too small", 2);
+			outbound(d, "list memory allocation failed", 2);
+		if (len < MIN_MAP_SIZE || len > MAX_W)
+			outbound(d, "input map size is out of bounds", 2);
+		else if (len > MAX_W)
+			outbound(d, "input map width is too small", 2);
 		if (node == d->lst)
 			d->line_len = len;
 		else if (len != d->line_len)
-			outbound(d, "FIX : map must be rectangular", 2);
+			outbound(d, "map must be rectangular", 2);
 		node = node->next;
 	}
 	return (1);
 }
 
-/* reads with get_next_line() into a linked-list
-each node contains string ending with a \n */
+/* reads with get_next_line() and pushes lines into a linked-list
+each node contains a string ending with an eventual trailing \n   */
 int		ft_lst_readlines(t_data *d, int fd)
 {
 	char	*line;
@@ -79,9 +77,9 @@ int		ft_lst_readlines(t_data *d, int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			outbound(d, "GNL : file unreadable has empty content", 2);
-		else if ( ft_strlen(line) < MIN_MAP_SIZE)
-			outbound(d, "GNL : file containing line width too small", 2);
+			outbound(d, "file unreadable or has empty content", 2);
+		else if ( ft_strlen(line) < MIN_MAP_SIZE || ft_strlen(line) > MAX_W)
+			outbound(d, "input map width is out of bounds", 2);
 		else
 		{
 			new = ft_lstnew((void *)line);
@@ -91,13 +89,12 @@ int		ft_lst_readlines(t_data *d, int fd)
 		}
 		d->nb_lines += 1;
 	}
-	if (d->nb_lines < MIN_MAP_SIZE)
-		outbound(d, "GNL : map height is too small", 2);
+	if (d->nb_lines < MIN_MAP_SIZE || d->nb_lines > MAX_H)
+		outbound(d, "input map height is out of bounds", 2);
 	return (1);
 }
 
-/* verifies if filename has a .ber extension returns 1.
-returns 0 otherwise*/
+/* verifies that filename has a .ber extension */
 int		valid_filename(const char *file, char *pattern)
 {
 	char	*ext;
@@ -110,7 +107,7 @@ int		valid_filename(const char *file, char *pattern)
 	return (1);
 }
 
-/* starting point to load map from .ber file */
+/* loads map from .ber file */
 int		load_and_verify_map(t_data *d, int argc, char **argv)
 {
 	int		fd;
@@ -121,10 +118,10 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 		outbound(d, "input file must have a .ber extension", 1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		outbound(d, "LVM : input file could not be opened", 1);
+		outbound(d, "input file could not be opened", 1);
 	if (!ft_lst_readlines(d, fd))
-		outbound(d, "LVM : file not readable, empty or memory allocated", 2);
+		outbound(d, "file not readable, empty or memory allocated", 2);
 	if (!ft_lst_fixline(d))
-		outbound(d, "LVM : memory could not be allocated", 2);
+		outbound(d, "memory could not be allocated", 2);
 	return (1);
 }

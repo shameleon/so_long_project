@@ -75,6 +75,11 @@ void	charset_and_wallproofing(t_data *d, char *line, int   y)
 			d->player_y = y;
 			d->player_x = x;
 		}
+		if (line[x] == 'E')
+		{
+			d->exit_y = y;
+			d->exit_x = x;
+		}
 		x++;
 	}
 }

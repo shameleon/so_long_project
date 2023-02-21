@@ -13,28 +13,26 @@
 #include "../include/so_long.h"
 
 /* writes error message on std_err, returns a (0)*/
-int     put_error(char *str)
+int		put_error(char *str)
 {
-    ft_putendl_fd("Error", 2);
-    write(2, "# ", 2);
-    ft_putendl_fd(str, 2);
-    return (0);
+	ft_putendl_fd("Error", 2);
+	write(2, "# ", 2);
+	ft_putendl_fd(str, 2);
+	return (0);
 }
-/*
-void    print_list(t_list *lst, char *name)
+
+/* writes error message on std_err, returns a (0)*/
+int		put_labeled_int(char *label, int nb_moves, char *end)
 {
-        printf ("%s :\n", name);
-        if (!lst)
-                printf("linked list is empty\n");
-        while (lst != NULL)
-        {
-                printf ("%s|-->", (char *)(lst->content));
-                lst = lst->next;
-        }
-        printf ("%p\n", lst);     // last element pointing to ...
-        printf ("\n");
+	char	*str_moves;
+
+	ft_putstr_fd(label, 1);
+	str_moves = ft_itoa(nb_moves);
+	ft_putstr_fd(str_moves, 1);
+	ft_putendl_fd(end, 1);
+	free (str_moves);
+	return (0);
 }
-*/
 
 void	print_map(char **map)
 {
@@ -54,5 +52,3 @@ void	print_map(char **map)
 		y++;
 	}
 }
-
-

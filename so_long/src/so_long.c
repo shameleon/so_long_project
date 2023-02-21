@@ -12,6 +12,18 @@
 
 #include "../include/so_long.h"
 
+/* 
+https://tronche.com/gui/x/xlib/events/types.html
+https://qst0.github.io/ft_libgfx/man_mlx_loop.html
+https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
+*/
+int     mouse_hook(void)
+{
+	// result == 4
+	printf ("mouse : pressed = %d\n", ButtonPress);
+	return (0);
+}
+
 int		init_mlx(t_data *d)
 {
 	d->mlx = mlx_init();
@@ -57,6 +69,8 @@ int		init_data(t_data *d)
 	d->nb_collect = 0;
 	d->player_x = 0;
 	d->player_y = 0;
+	d->player_moves = 0;
+	d->open_exit = 0;
 	return(0);
 }
 
@@ -69,18 +83,17 @@ int		main(int argc, char **argv)
 	load_and_verify_map(&d, argc, argv);
 	check_content(&d);
 	pathfinder(&d);
-	load_sprites(&d);
 	init_mlx(&d);
+	load_sprites(&d);
 	display_map(&d);
 	mlx_hook(d.win, 2, 1L<<0, game_controls, &d);
-	//mlx_mouse_hook(d->win, mouse_hook, d);
+	mlx_mouse_hook(d.win, mouse_hook, &d);
 	mlx_loop(d.mlx);
 	outbound(&d, "EXIT after success", 0);
 	return (0);
 }
 
-/* 
- gcc -Wall -Werror -Wextra ./src/so_long.c ./src/load_map.c 
- ./src/so_long_utils.c ./src/outbound.c -I ./include/ 
- -I ./libft/ -L ./libft/ -lft  -o so_long -g3 -fsanitize=address
+
+/*
+https://tronche.com/gui/x/xlib/events/keyboard-pointer/keyboard-pointer.html
 */

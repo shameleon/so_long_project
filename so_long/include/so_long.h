@@ -13,24 +13,19 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-/* flags */
+/* debug flags */
 # define READ_FILE  1
 # define VALIDATE_MAP 1
-# define PRINT_PATHFINDER 1
+# define PRINT_PATHFINDER 0
 
 /* map */
-# define MIN_MAP_SIZE 4
 # define MAP_SET "01PCE"
-
-/* window maximum size */
-# define WINMAX_W 4000
-# define WINMAX_H 2000
+# define MIN_MAP_SIZE 4
+# define MAX_W 30
+# define MAX_H 17
 
 /* texture size */
 # define TILE 80
-
-/* error messages */
-# define ERR_MLX 1
 
 /* window title */
 # define WIN_TITLE "so_long jmouaike"
@@ -39,9 +34,9 @@
 # define XPM_WALL "./rss/wall.xpm"
 # define XPM_FLOOR "./rss/floor.xpm"
 # define XPM_PLAYER "./rss/player.xpm"
-# define XPM_COLLECT "./rss/collectible1.xpm"
-# define XPM_EXIT0 "./rss/exit_close.xpm"
-# define XPM_EXIT1 "./rss/exit_open2.xpm"
+# define XPM_COLLECT "./rss/collect_chocolate_egg.xpm"
+# define XPM_EXIT0 "./rss/exit_closed.xpm"
+# define XPM_EXIT1 "./rss/exit_open.xpm"
 
 /* keyboard keys Linux */
 # define ARROW_UP 65362
@@ -60,9 +55,9 @@
 # include <fcntl.h>
 # include <string.h>
 # include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include "../minilibx-linux/mlx.h"
 
 typedef struct s_img
 {
@@ -89,15 +84,20 @@ typedef struct s_data
 	int		nb_collect;
 	int		player_x;
 	int		player_y;
+	int		player_moves;
+	int		open_exit;
+	int		exit_x;
+	int		exit_y;
 	t_img	img;
 }				t_data;
 
 /* so_long_utils.c  */
 int		put_error(char *str);
+int		put_moves(int nb_moves);
 void	print_map(char **map);
-void	print_list(t_list *lst, char *name);
 
 /* outbound.c  */
+void	end_game(t_data *d);
 int		destruct_data(t_data *d);
 int		outbound(t_data *d, char *mssg, int err_code);
 
@@ -120,11 +120,13 @@ int		valid_filename(const char *file, char *pattern);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
 /* update_display.c */
-int		player_moves(t_data *d, int i, int j);
+void	collect_item(t_data *d, int y, int x);
+int		put_labeled_int(char *label, int nb_moves, char *end);
 int		game_controls(int KeySym, t_data *d);
 int		display_map(t_data *d);
 
 /*   so_long.c  */
+int     mouse_hook(void);
 int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);

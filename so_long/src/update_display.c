@@ -12,6 +12,21 @@
 
 #include "../include/so_long.h"
 
+void	collect_item(t_data *d, int y, int x)
+{
+	d->map[y][x] = '0';
+	if (d->nb_collect > 0)
+	{
+		d->nb_collect -= 1;
+		put_labeled_int("remaining to collect : ", d->nb_collect, " eggs");
+		if (d->nb_collect == 0)
+		{
+			d->open_exit = 1;
+			mlx_put_image_to_window(d->mlx, d->win, d->img.exit1, d->exit_x * TILE, d->exit_y * TILE);
+		}
+	}
+}
+
 int		player_moves(t_data *d, int i, int j)
 {
 	int		y;
@@ -19,19 +34,20 @@ int		player_moves(t_data *d, int i, int j)
 
 	y = d->player_y + i;
 	x = d->player_x + j;
-	printf("%d, %d => %d, %d \n ", d->player_y, d->player_x, y, x);
 	if (d->map[y][x]  == '1')
 		return (0);
 	else if (d->map[y][x] != '1')
 	{
 		mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->player_x * TILE, d->player_y * TILE);
-		//d->map.map[d->pl_y][d->pl_x] = '0';
 		mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE, y * TILE);
-		//d->map.map[y][x] = 'P';
 		d->player_y += i;
 		d->player_x += j;
-		//|| d->map.map[y][x] == 'C'
-		mlx_string_put(d->mlx, d->win, 20, 20, 0x000000FF, "move");
+		d->player_moves += 1;
+		put_labeled_int("plaver : ", d->player_moves, " moves");
+		if (d->map[y][x] == 'C')
+			collect_item(d, y, x);
+		else if (d->map[y][x] == 'E' && d->open_exit == 1)
+			end_game(d);
 		return (1);
 	}
 	return (1);
@@ -48,7 +64,7 @@ int		game_controls(int KeySym, t_data *d)
 	else if (KeySym == 'd' || KeySym == 65363)
 		player_moves(d, 0, 1);
 	else if (KeySym == 'q' || KeySym == 65307)
-		printf ("exit game \n");
+		outbound(d, "Premature exiting : game over", 2);
 	return (0);
 }
 
@@ -68,15 +84,11 @@ int		display_map(t_data *d)
 			else if(d->map[y][x] == '0')
 				mlx_put_image_to_window(d->mlx, d->win, d->img.floor, x * TILE, y * TILE);
 			else if(d->map[y][x] == 'E')
-				mlx_put_image_to_window(d->mlx, d->win, d->img.exit1, x * TILE, y * TILE);
+				mlx_put_image_to_window(d->mlx, d->win, d->img.exit0, x * TILE, y * TILE);
 			else if(d->map[y][x] == 'C')
 				mlx_put_image_to_window(d->mlx, d->win, d->img.collect, x * TILE, y * TILE);
 			else if(d->map[y][x] == 'P')
-			{
 				mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE , y * TILE);
-				d->player_x = x;
-				d->player_y = y;
-			}
 			x++;
 		}
 		y++;
