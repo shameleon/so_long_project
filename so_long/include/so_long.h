@@ -33,15 +33,15 @@
 # define ERR_MLX 1
 
 /* window title */
-# define WIN_TITLE "so_long"
+# define WIN_TITLE "so_long jmouaike"
 
 /* textures relative path */
-# define XPM_WALL "../rss/wall.xpm"
-# define XPM_FLOOR "../rss/floor.xpm"
-# define XPM_PLAYER "../rss/player.xpm"
-# define XPM_COLLECT "../rss/collectible1.xpm"
-# define XPM_EXIT0 "../rss/exit_close.xpm"
-# define XPM_EXIT1 "../rss/exit_open2.xpm"
+# define XPM_WALL "./rss/wall.xpm"
+# define XPM_FLOOR "./rss/floor.xpm"
+# define XPM_PLAYER "./rss/player.xpm"
+# define XPM_COLLECT "./rss/collectible1.xpm"
+# define XPM_EXIT0 "./rss/exit_close.xpm"
+# define XPM_EXIT1 "./rss/exit_open2.xpm"
 
 /* keyboard keys Linux */
 # define ARROW_UP 65362
@@ -60,25 +60,23 @@
 # include <fcntl.h>
 # include <string.h>
 # include "../libft/libft.h"
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include "../minilibx-linux-master/mlx.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include "../minilibx-linux/mlx.h"
 
-//# define RSS_PATH "./maps/"
-
-typedef struct  s_img
+typedef struct s_img
 {
 	void	*wall;
-    void    *floor;
-    void    *player;
-    void    *collect;
-	void    *exit1;
-    void    *exit0;
-    int     w;
-    int     h;
-}               t_img;
+	void	*floor;
+	void	*player;
+	void	*collect;
+	void	*exit1;
+	void	*exit0;
+	int		w;
+	int		h;
+}				t_img;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
@@ -91,44 +89,45 @@ typedef struct	s_data
 	int		nb_collect;
 	int		player_x;
 	int		player_y;
-	t_img   img;
+	t_img	img;
 }				t_data;
 
 /* so_long_utils.c  */
-int     put_error(char *str);
+int		put_error(char *str);
 void	print_map(char **map);
-void    print_list(t_list *lst, char *name);
+void	print_list(t_list *lst, char *name);
 
 /* outbound.c  */
-int     destruct_data(t_data *d);
-int     outbound(t_data *d, char *mssg, int err_code);
+int		destruct_data(t_data *d);
+int		outbound(t_data *d, char *mssg, int err_code);
 
 /* pathfinding.c */
-int     check_map_count(char **map, char *charset);
+void	copy_lst_to_split(t_data *d);
+int		check_map_count(char **map, char *charset);
 int		floodfill(char **mirror, int y, int x);
 int		pathfinder(t_data *d);
 
 /* check_map.c */
 char	**ft_lst_split(t_data *d);
-void	charset_and_wallproofing(t_data *d, char *line, int   y);
-void    check_content(t_data *d);
+void	charset_and_wallproofing(t_data *d, char *line, int y);
+void	check_content(t_data *d);
 
-/* load_map.c  */
+/* load_map.c */
 char	*trim_eol(char *line, int *len);
 int		ft_lst_fixline(t_data *d);
 int		ft_lst_readlines(t_data *d, int fd);
 int		valid_filename(const char *file, char *pattern);
 int		load_and_verify_map(t_data *d, int argc, char **argv);
 
-/* rendering.c */
-int    player_moves(t_data *d, int i, int j);
-int     game_controls(int KeySym, t_data *d);
-int     display_map(t_data *d);
+/* update_display.c */
+int		player_moves(t_data *d, int i, int j);
+int		game_controls(int KeySym, t_data *d);
+int		display_map(t_data *d);
 
 /*   so_long.c  */
 int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);
-int     main(int argc, char **argv);
+int		main(int argc, char **argv);
 
 #endif

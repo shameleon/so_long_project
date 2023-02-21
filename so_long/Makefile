@@ -16,12 +16,12 @@ INCL_DIR	= ./include/
 SRC_DIR		= ./src/
 SRC_FILES	= so_long.c load_map.c so_long_utils.c \
 			 check_map.c outbound.c pathfinding.c \
-			 rendering.c \
+			 update_display.c \
 
 SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 
 # minilibx
-MLX_DIR		= ./minilibx-linux-master/
+MLX_DIR		= ./minilibx-linux/
 LIB_MLX		= $(addprefix $(MLX_DIR), libmlx.a)
 
 # Libft

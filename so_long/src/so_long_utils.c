@@ -20,7 +20,7 @@ int     put_error(char *str)
     ft_putendl_fd(str, 2);
     return (0);
 }
-
+/*
 void    print_list(t_list *lst, char *name)
 {
         printf ("%s :\n", name);
@@ -34,6 +34,7 @@ void    print_list(t_list *lst, char *name)
         printf ("%p\n", lst);     // last element pointing to ...
         printf ("\n");
 }
+*/
 
 void	print_map(char **map)
 {

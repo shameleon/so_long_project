@@ -119,12 +119,12 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 		outbound(d, "too many arguments, not exactly one file turned in", 1);
 	if (!(valid_filename(argv[1], ".ber")))
 		outbound(d, "input file must have a .ber extension", 1);
-    fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		outbound(d, "LVM : input file could not be opened", 1);
-    if (!ft_lst_readlines(d, fd))
+	if (!ft_lst_readlines(d, fd))
 		outbound(d, "LVM : file not readable, empty or memory allocated", 2);
 	if (!ft_lst_fixline(d))
 		outbound(d, "LVM : memory could not be allocated", 2);
-    return (1);
+	return (1);
 }
