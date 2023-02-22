@@ -38,7 +38,10 @@ int		player_moves(t_data *d, int i, int j)
 		return (0);
 	else if (d->map[y][x] != '1')
 	{
-		mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->player_x * TILE, d->player_y * TILE);
+		if (d->map[y - i][x - j] == 'E' && d->open_exit == 0)
+			mlx_put_image_to_window(d->mlx, d->win, d->img.exit0, d->player_x * TILE, d->player_y * TILE);
+		else
+			mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->player_x * TILE, d->player_y * TILE);
 		mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE, y * TILE);
 		d->player_y += i;
 		d->player_x += j;
