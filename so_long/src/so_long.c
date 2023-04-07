@@ -87,7 +87,7 @@ int		main(int argc, char **argv)
 	load_sprites(&d);
 	display_map(&d);
 	mlx_hook(d.win, 2, 1L<<0, game_controls, &d);
-	mlx_hook(d.win, 17, 1L<<0, ft_mouse_exit, &d);
+	mlx_hook(d.win, 17, 1L<<0, at_mouse_exit, &d);
 	mlx_loop(d.mlx);
 	outbound(&d, "EXIT after success", 0);
 	return (0);

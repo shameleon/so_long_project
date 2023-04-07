@@ -84,6 +84,7 @@ norm:
 
 # DEBUG = -g3 -fsanitize=address
 # valgrind --leak-check=full 
+#
 #  $ env -i <votre-executable>
 # https://makefiletutorial.com/#interrupting-or-killing-make
 #
