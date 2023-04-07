@@ -16,7 +16,7 @@ void	end_game(t_data *d)
 {
 	ft_putendl_fd("SUCCESS : all eggs were collected !", 1);
 	put_labeled_int("Exit was reached in ", d->player_moves, " moves !");
-	outbound(d, "success", 0);
+	outbound(d, "[ success ]", 0);
 }
 
 /* 
@@ -32,7 +32,9 @@ int		destruct_data(t_data *d)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)
 		mlx_destroy_display(d->mlx);
-	//free(d->mlx);
+	//if (d->img.wall)
+		//free (d->img.wall);
+	free(d->mlx);
 	return (1);
 }
 

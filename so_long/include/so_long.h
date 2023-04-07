@@ -126,7 +126,7 @@ int		game_controls(int KeySym, t_data *d);
 int		display_map(t_data *d);
 
 /*   so_long.c  */
-int     mouse_button_pressed(t_data *d);
+int		at_mouse_exit(t_data *d)
 int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);

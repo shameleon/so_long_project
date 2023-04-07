@@ -17,20 +17,10 @@ https://tronche.com/gui/x/xlib/events/types.html
 https://qst0.github.io/ft_libgfx/man_mlx_loop.html
 https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
 */
-int     mouse_button_pressed(t_data *d)
-{
-	int		*x;
-	int		*y;
-	int 	origin;
 
-	origin = 0;
-	x = &origin;
-	y = &origin;
-	// ButtonPress == 4
-	printf ("mouse : pressed = %d\n", ButtonPress);
-	mlx_mouse_get_pos(d->mlx, d->win, x, y);
-	if (x && y )
-		printf ("mouse : x = %d  y = %d", *x, *y);
+int		at_mouse_exit(t_data *d)
+{
+	outbound(d, "Window closed : game over", 2);
 	return (0);
 }
 
@@ -97,7 +87,7 @@ int		main(int argc, char **argv)
 	load_sprites(&d);
 	display_map(&d);
 	mlx_hook(d.win, 2, 1L<<0, game_controls, &d);
-	mlx_mouse_hook(d.win, mouse_button_pressed, &d);
+	mlx_hook(d.win, 17, 1L<<0, ft_mouse_exit, &d);
 	mlx_loop(d.mlx);
 	outbound(&d, "EXIT after success", 0);
 	return (0);
@@ -105,5 +95,11 @@ int		main(int argc, char **argv)
 
 
 /*
+issues :
+valgrind --leak-check=full --show-leak-kinds=all -s
+1- still reachable main->load_sprites->mlx_xpam_file_to_image-
+	XShmCreateImage -> calloc
+	===> free textures in outbound / destruct_data()
+
 https://tronche.com/gui/x/xlib/events/keyboard-pointer/keyboard-pointer.html
 */

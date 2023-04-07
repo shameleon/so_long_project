@@ -1,0 +1,15 @@
+.DS_Store
+*.swp
+./.vscode/*
+.vscode
+*.txt
+*.md
+# Prerequisites
+*.d
+# Compiled Object files
+*.o
+# Executables
+*.out
+# Compiled Static libraries
+*.a
+*.lib
