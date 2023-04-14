@@ -27,6 +27,15 @@ void	collect_item(t_data *d, int y, int x)
 	}
 }
 
+/* 
+- eventually updates display and player position upon game controls sent params
+- checks if next move coords ( x and y ) need to trigger updates :
+	- display update : places player sprite on new pos and replaces previous pos.
+	- player position update 
+	- display number of moves on terminal stdout --> put_labeled_int()
+	- collectible found                          --> collect_item()
+- updates display according to player moves
+*/
 int		player_moves(t_data *d, int i, int j)
 {
 	int		y;
@@ -42,7 +51,10 @@ int		player_moves(t_data *d, int i, int j)
 			mlx_put_image_to_window(d->mlx, d->win, d->img.exit0, d->player_x * TILE, d->player_y * TILE);
 		else
 			mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->player_x * TILE, d->player_y * TILE);
-		mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE, y * TILE);
+		if (d->map[y][x] != 'E')
+			mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE, y * TILE);
+		else
+			mlx_put_image_to_window(d->mlx, d->win, d->img.player_on_exit, x * TILE, y * TILE);
 		d->player_y += i;
 		d->player_x += j;
 		d->player_moves += 1;
@@ -56,6 +68,10 @@ int		player_moves(t_data *d, int i, int j)
 	return (1);
 }
 
+/* 
+- games control : 
+- arrows and aswd keys to move   - q and esc to quit
+*/
 int		game_controls(int KeySym, t_data *d)
 {
 	if (KeySym == 'w' || KeySym == 65362)

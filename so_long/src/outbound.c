@@ -12,6 +12,9 @@
 
 #include "../include/so_long.h"
 
+/* 
+- ends game with success
+*/
 void	end_game(t_data *d)
 {
 	ft_putendl_fd("SUCCESS : all eggs were collected !", 1);

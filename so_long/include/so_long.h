@@ -37,6 +37,7 @@
 # define XPM_COLLECT "./rss/collect_chocolate_egg.xpm"
 # define XPM_EXIT0 "./rss/exit_closed.xpm"
 # define XPM_EXIT1 "./rss/exit_open.xpm"
+# define XPM_PLAYER_ON_EXIT "./rss/player_on_exit.xpm"
 
 /* keyboard keys Linux */
 # define ARROW_UP 65362
@@ -67,6 +68,7 @@ typedef struct s_img
 	void	*collect;
 	void	*exit1;
 	void	*exit0;
+	void	*player_on_exit;
 	int		w;
 	int		h;
 }				t_img;

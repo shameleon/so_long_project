@@ -18,12 +18,18 @@ https://qst0.github.io/ft_libgfx/man_mlx_loop.html
 https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
 */
 
+/* 
+- exit upon mouse click on window corner
+*/
 int		at_mouse_exit(t_data *d)
 {
 	outbound(d, "Window closed : game over", 2);
 	return (0);
 }
 
+/* 
+- initiates mlx 
+*/
 int		init_mlx(t_data *d)
 {
 	d->mlx = mlx_init();
@@ -35,6 +41,9 @@ int		init_mlx(t_data *d)
 	return (0);
 }
 
+/* 
+- load images that will be pointed by d->img structure elements
+*/
 void	load_sprites(t_data *d)
 {
 	d->img.wall = mlx_xpm_file_to_image(d->mlx, XPM_WALL, &d->img.w, &d->img.h);
@@ -55,6 +64,9 @@ void	load_sprites(t_data *d)
 	d->img.exit0 = mlx_xpm_file_to_image(d->mlx, XPM_EXIT0, &d->img.w, &d->img.h);
 	if (d->img.exit0 == NULL)
 		outbound(d, "exit0 image file could not be loaded", 2);
+	d->img.player_on_exit = mlx_xpm_file_to_image(d->mlx, XPM_PLAYER_ON_EXIT, &d->img.w, &d->img.h);
+	if (d->img.player_on_exit == NULL)
+		outbound(d, "player_on_exit image file could not be loaded", 2);
 }
 
 int		init_data(t_data *d)
