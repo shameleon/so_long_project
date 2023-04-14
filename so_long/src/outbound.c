@@ -31,12 +31,21 @@ int		destruct_data(t_data *d)
 		ft_lstclear(&(d->lst), free);
 	if (d->map)
 		ft_free_split(d->map);
+	if (d->img.floor)
+		mlx_destroy_image(d->mlx, d->img.floor);
 	if (d->win)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)
 		mlx_destroy_display(d->mlx);
 	//if (d->img.wall)
 		//free (d->img.wall);
+	// d->img.wall = NULL;
+	// d->img.floor = NULL;
+	// d->img.player = NULL;
+	// d->img.collect = NULL;
+	// d->img.exit1 = NULL;
+	// d->img.exit0 = NULL;
+	// d->img.player_on_exit = NULL;
 	free(d->mlx);
 	return (1);
 }

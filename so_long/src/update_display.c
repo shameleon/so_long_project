@@ -28,11 +28,13 @@ void	collect_item(t_data *d, int y, int x)
 }
 
 /* 
-- eventually updates display and player position upon game controls sent params
-- checks if next move coords ( x and y ) need to trigger updates :
-	- display update : places player sprite on new pos and replaces previous pos.
-	- player position update 
-	- display number of moves on terminal stdout --> put_labeled_int()
+- eventual updates upon 'game_controls()' sent params
+- checks if next move coords ( x and y ) and if needed tiggers adequate updates :
+	- display update : places player sprite on new pos
+		and replaces previous pos with floor or exit.
+	- player position values update 
+	- update value for number of moves 
+		and writes it on terminal stdout         --> put_labeled_int()
 	- collectible found                          --> collect_item()
 - updates display according to player moves
 */
