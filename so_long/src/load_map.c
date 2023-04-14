@@ -52,15 +52,15 @@ int		ft_lst_fixline(t_data *d)
 	{
 		node->content = (void *)trim_eol((char*)(node->content), &len);
 		if (!(node->content))
-			outbound(d, "list memory allocation failed", 2);
+			outbound(d, "list memory allocation failed", 3);
 		if (len < MIN_MAP_SIZE || len > MAX_W)
-			outbound(d, "input map size is out of bounds", 2);
+			outbound(d, "input map size is out of bounds", 3);
 		else if (len > MAX_W)
-			outbound(d, "input map width is too small", 2);
+			outbound(d, "input map width is too small", 3);
 		if (node == d->lst)
 			d->line_len = len;
 		else if (len != d->line_len)
-			outbound(d, "map must be rectangular", 2);
+			outbound(d, "map must be rectangular", 3);
 		node = node->next;
 	}
 	return (1);
@@ -70,21 +70,21 @@ int		ft_lst_fixline(t_data *d)
 each node contains a string ending with an eventual trailing \n   */
 int		ft_lst_readlines(t_data *d, int fd)
 {
-	char	*line;
 	t_list	*new;
 
-	while (d->nb_lines == 0 || ft_strchr(line, '\n'))
+	while (d->nb_lines == 0 || ft_strchr(d->line, '\n'))
 	{
-		line = get_next_line(fd);
-		if (!line)
-			outbound(d, "file unreadable or has empty content", 2);
-		else if ( ft_strlen(line) < MIN_MAP_SIZE || ft_strlen(line) > MAX_W)
+		d->line = get_next_line(fd);
+		if (!(d->line))
+			outbound(d, "file unreadable or has empty content", 1);
+		else if ( ft_strlen(d->line) < MIN_MAP_SIZE 
+				|| ft_strlen(d->line) > MAX_W)
 			outbound(d, "input map width is out of bounds", 2);
 		else
 		{
-			new = ft_lstnew((void *)line);
+			new = ft_lstnew((void *)(d->line));
 			if (!new)
-				outbound(d, "linked list : memory allocation failed", 2);
+				outbound(d, "linked list : memory allocation failed", 3);
 			ft_lstadd_back(&d->lst, new);
 		}
 		d->nb_lines += 1;
@@ -120,7 +120,7 @@ int		load_and_verify_map(t_data *d, int argc, char **argv)
 	if (fd < 0)
 		outbound(d, "input file could not be opened", 1);
 	if (!ft_lst_readlines(d, fd))
-		outbound(d, "file not readable, empty or memory allocated", 2);
+		outbound(d, "file not readable, empty or memory allocated", 1);
 	if (!ft_lst_fixline(d))
 		outbound(d, "memory could not be allocated", 2);
 	return (1);

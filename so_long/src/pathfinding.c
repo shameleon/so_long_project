@@ -74,7 +74,7 @@ int     pathfinder(t_data *d)
 	if (PRINT_PATHFINDER)
 		print_map(d->map);
 	if (check_map_count(d->map, "PCE") > 0)
-		outbound(d, "all collectibles and exit might not be reachable", 2);
+		outbound(d, "all collectibles and exit might not be reachable", 3);
 	copy_lst_to_split(d);
 	if (PRINT_PATHFINDER)
 	{

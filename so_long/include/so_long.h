@@ -21,7 +21,7 @@
 /* map */
 # define MAP_SET "01PCE"
 # define MIN_MAP_SIZE 4
-# define MAX_W 30
+# define MAX_W 32
 # define MAX_H 17
 
 /* texture size */
@@ -77,6 +77,7 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
+	char	*line;
 	t_list	*lst;
 	int		nb_lines;
 	int		line_len;

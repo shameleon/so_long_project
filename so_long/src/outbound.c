@@ -36,7 +36,10 @@ int		destruct_data(t_data *d)
 	if (d->win)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)
+	{
 		mlx_destroy_display(d->mlx);
+		//free(d->mlx);
+	}
 	//if (d->img.wall)
 		//free (d->img.wall);
 	// d->img.wall = NULL;
@@ -65,7 +68,12 @@ int		outbound(t_data *d, char *mssg, int err_code)
 		destruct_data(d);
 		exit (0);
 	}
-	else if (err_code >= 2)
+	else if (err_code == 2)
+	{
+		if	(d->line)
+			free (d->line);
+	}
+	else if (err_code >= 3)
 		destruct_data(d);
 	put_error(mssg);
 	exit (1);

@@ -23,7 +23,7 @@ https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
 */
 int		at_mouse_exit(t_data *d)
 {
-	outbound(d, "Window closed : game over", 2);
+	outbound(d, "Window closed : game over", 3);
 	return (0);
 }
 
@@ -34,10 +34,10 @@ int		init_mlx(t_data *d)
 {
 	d->mlx = mlx_init();
 	if (d->mlx == NULL)
-		outbound(d, "MLX library initiation failure", 2);
+		outbound(d, "MLX library initiation failure", 3);
 	d->win = mlx_new_window(d->mlx, TILE * d->line_len, TILE * d->nb_lines, WIN_TITLE);
 	if (d->win == NULL)
-		outbound(d, "MLX library could not open window", 2);
+		outbound(d, "MLX library could not open window", 3);
 	return (0);
 }
 
@@ -48,31 +48,32 @@ void	load_sprites(t_data *d)
 {
 	d->img.wall = mlx_xpm_file_to_image(d->mlx, XPM_WALL, &d->img.w, &d->img.h);
 	if (d->img.wall == NULL)
-		outbound(d, "wall image file could not be loaded", 2);
+		outbound(d, "wall image file could not be loaded", 3);
 	d->img.floor = mlx_xpm_file_to_image(d->mlx, XPM_FLOOR, &d->img.w, &d->img.h);
 	if (d->img.floor == NULL)
-		outbound(d, "floor image file could not be loaded", 2);
+		outbound(d, "floor image file could not be loaded", 3);
 	d->img.player = mlx_xpm_file_to_image(d->mlx, XPM_PLAYER, &d->img.w, &d->img.h);
 	if (d->img.player == NULL)
-		outbound(d, "player image file could not be loaded", 2);
+		outbound(d, "player image file could not be loaded", 3);
 	d->img.collect = mlx_xpm_file_to_image(d->mlx, XPM_COLLECT, &d->img.w, &d->img.h);
 	if (d->img.collect == NULL)
-		outbound(d, "collectible image file could not be loaded", 2);
+		outbound(d, "collectible image file could not be loaded", 3);
 	d->img.exit1 = mlx_xpm_file_to_image(d->mlx, XPM_EXIT1, &d->img.w, &d->img.h);
 	if (d->img.exit1 == NULL)
-		outbound(d, "exit1 image file could not be loaded", 2);
+		outbound(d, "exit1 image file could not be loaded", 3);
 	d->img.exit0 = mlx_xpm_file_to_image(d->mlx, XPM_EXIT0, &d->img.w, &d->img.h);
 	if (d->img.exit0 == NULL)
-		outbound(d, "exit0 image file could not be loaded", 2);
+		outbound(d, "exit0 image file could not be loaded", 3);
 	d->img.player_on_exit = mlx_xpm_file_to_image(d->mlx, XPM_PLAYER_ON_EXIT, &d->img.w, &d->img.h);
 	if (d->img.player_on_exit == NULL)
-		outbound(d, "player_on_exit image file could not be loaded", 2);
+		outbound(d, "player_on_exit image file could not be loaded", 3);
 }
 
 int		init_data(t_data *d)
 {
 	ft_memset(d, 0, sizeof(t_data));
 	d->lst = NULL;
+	d->line = NULL;
 	d->nb_lines = 0;
 	d->line_len = 0;
 	d->map = NULL;

@@ -38,13 +38,13 @@ char		**ft_lst_split(t_data *d)
 	node = d->lst;
 	map = (char **)malloc(sizeof(*map) * (d->nb_lines + 1));
 	if (!map)
-		outbound(d, "map memory allocation failed", 2);
+		outbound(d, "map memory allocation failed", 3);
 	y = 0;
 	while (y < d->nb_lines)
 	{
 		map[y] = fill_word(node->content, (unsigned int)d->line_len);
 		if (!map[y])
-			outbound(d, "map memory allocation failed", 2);
+			outbound(d, "map memory allocation failed", 3);
 		y++;
 		node = node->next;
 	}
@@ -63,13 +63,13 @@ void	charset_and_wallproofing(t_data *d, char *line, int   y)
 
 	x = 0;
 	if (line[x] != '1' || line[d->line_len - 1] != '1')
-		outbound(d, "map must be surrounded by walls", 2);
+		outbound(d, "map must be surrounded by walls", 3);
 	while(line[x])
 	{ 
 		if (!ft_strchr(MAP_SET, line[x]))
-			outbound(d, "map content not valid : only 01CPE chars please", 2);
+			outbound(d, "map content not valid : only 01CPE chars please", 3);
 		if ((y == 0 || y == d->nb_lines - 1 ) && line[x] != '1')
-			outbound(d, "map must be surrounded by walls", 2);
+			outbound(d, "map must be surrounded by walls", 3);
 		if (line[x] == 'P')
 		{
 			d->player_y = y;
@@ -104,12 +104,12 @@ void    check_content(t_data *d)
 		y++;
 	}
 	if (d->nb_player != 1 )
-		outbound(d, "map not valid : provide exactly 1 player P please", 2);
+		outbound(d, "map not valid : provide exactly 1 player P please", 3);
 	if (d->nb_exit != 1)
-		outbound(d, "map not valid, provide exactly 1 exit E please", 2);
+		outbound(d, "map not valid, provide exactly 1 exit E please", 3);
 	if (d->nb_collect < 1)
-		outbound(d, "map not valid, no collectibles found", 2);
+		outbound(d, "map not valid, no collectibles found", 3);
 	d->map = ft_lst_split(d);
 	if (!d->map)
-		outbound(d, "map memory allocation failed", 2);
+		outbound(d, "map memory allocation failed", 3);
 }
