@@ -85,7 +85,7 @@ int		game_controls(int KeySym, t_data *d)
 	else if (KeySym == 'd' || KeySym == 65363)
 		player_moves(d, 0, 1);
 	else if (KeySym == 'q' || KeySym == 65307)
-		outbound(d, "Premature exiting : game over", 2);
+		outbound(d, "key [q] pressed for exiting : game over", 3);
 	return (0);
 }
 

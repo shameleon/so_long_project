@@ -12,9 +12,7 @@
 
 #include "../include/so_long.h"
 
-/* 
-- ends game with success
-*/
+/* ends game with success */
 void	end_game(t_data *d)
 {
 	ft_putendl_fd("SUCCESS : all eggs were collected !", 1);
@@ -22,17 +20,27 @@ void	end_game(t_data *d)
 	outbound(d, "[ success ]", 0);
 }
 
-/* 
-- cleans game before quiting
-*/
+/* cleans game before quiting */
 int		destruct_data(t_data *d)
 {
 	if (d->lst)
 		ft_lstclear(&(d->lst), free);
 	if (d->map)
 		ft_free_split(d->map);
+	if (d->img.wall)
+		mlx_destroy_image(d->mlx, d->img.wall);
 	if (d->img.floor)
 		mlx_destroy_image(d->mlx, d->img.floor);
+	if (d->img.player)
+		mlx_destroy_image(d->mlx, d->img.player);
+	if (d->img.collect)
+		mlx_destroy_image(d->mlx, d->img.collect);
+	if (d->img.exit1)
+		mlx_destroy_image(d->mlx, d->img.exit1);
+	if (d->img.exit0)
+		mlx_destroy_image(d->mlx, d->img.exit0);
+	if(d->img.player_on_exit)
+		mlx_destroy_image(d->mlx, d->img.player_on_exit);
 	if (d->win)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)

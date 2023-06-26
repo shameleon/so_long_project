@@ -54,7 +54,7 @@ void	load_sprites(t_data *d)
 		outbound(d, "floor image file could not be loaded", 3);
 	d->img.player = mlx_xpm_file_to_image(d->mlx, XPM_PLAYER, &d->img.w, &d->img.h);
 	if (d->img.player == NULL)
-		outbound(d, "player image file could not be loaded", 3);
+		outbound(d, "player image file could not be loaded",3);
 	d->img.collect = mlx_xpm_file_to_image(d->mlx, XPM_COLLECT, &d->img.w, &d->img.h);
 	if (d->img.collect == NULL)
 		outbound(d, "collectible image file could not be loaded", 3);
