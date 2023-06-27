@@ -57,7 +57,7 @@ $(NAME): $(LIB_LFT) $(LIB_MLX)
 	@echo $(G) making so_long executable [OK]  $(RES) 
 
 $(LIB_LFT):
-	@make -C $(LFT_DIR) allcd ..
+	@make -C $(LFT_DIR) all
 	@make -C $(LFT_DIR) bonus
 	@echo  $(G) making libft.a including bonus [OK] $(RES) 
 
@@ -79,7 +79,10 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette ./src/*
+	@echo $(G) so_long directory $(RES) 
+	@norminette $(SRC_DIR)* $(INCL_DIR)*
+	@echo $(G) libft directory $(RES) 
+	@norminette $(LFT_DIR)*.c $(LFT_DIR)*.h
 
 .PHONY: all clean fclean re norm
 

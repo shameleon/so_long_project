@@ -12,7 +12,25 @@
 
 #include "../include/so_long.h"
 
-/* writes error message on std_err, returns a (0)*/
+/* loads xpm_file to t_img pointer*/
+void	*xpm_file_to_image(t_data *d, char *xpm_file)
+{
+	void	*sprite;
+
+	sprite = mlx_xpm_file_to_image(d->mlx, xpm_file, &d->img.w, &d->img.h);
+	if (sprite == NULL)
+		outbound(d, "Image file could not be loaded", 3);
+	return (sprite);
+}
+
+/* put_image_to_window */
+int	put_img_to_window(t_data *d, void *img, int x, int y)
+{
+	mlx_put_image_to_window(d->mlx, d->win, img, x * TILE, y * TILE);
+	return (0);
+}
+
+/* writes error message on std_err, returns a (0) */
 int	put_error(char *str)
 {
 	ft_putendl_fd("Error", 2);

@@ -22,7 +22,7 @@ void	collect_item(t_data *d, int y, int x)
 		if (d->nb_collect == 0)
 		{
 			d->open_exit = 1;
-			mlx_put_image_to_window(d->mlx, d->win, d->img.exit1, d->exit_x * TILE, d->exit_y * TILE);
+			put_img_to_window(d, d->img.exit1, d->exit_x, d->exit_y);
 		}
 	}
 }
@@ -38,25 +38,23 @@ void	collect_item(t_data *d, int y, int x)
 	- collectible found                          --> collect_item()
 - updates display according to player moves
 */
-int		player_moves(t_data *d, int i, int j)
+void	player_moves(t_data *d, int i, int j)
 {
 	int		y;
 	int		x;
 
 	y = d->player_y + i;
 	x = d->player_x + j;
-	if (d->map[y][x]  == '1')
-		return (0);
-	else if (d->map[y][x] != '1')
+	if (d->map[y][x] != '1')
 	{
 		if (d->map[y - i][x - j] == 'E' && d->open_exit == 0)
-			mlx_put_image_to_window(d->mlx, d->win, d->img.exit0, d->player_x * TILE, d->player_y * TILE);
+			put_img_to_window(d, d->img.exit0, d->player_x, d->player_y);
 		else
-			mlx_put_image_to_window(d->mlx, d->win, d->img.floor, d->player_x * TILE, d->player_y * TILE);
+			put_img_to_window(d, d->img.floor, d->player_x, d->player_y);
 		if (d->map[y][x] != 'E')
-			mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE, y * TILE);
+			put_img_to_window(d, d->img.player, x, y);
 		else
-			mlx_put_image_to_window(d->mlx, d->win, d->img.player_on_exit, x * TILE, y * TILE);
+			put_img_to_window(d, d->img.player_on_exit, x, y);
 		d->player_y += i;
 		d->player_x += j;
 		d->player_moves += 1;
@@ -65,16 +63,14 @@ int		player_moves(t_data *d, int i, int j)
 			collect_item(d, y, x);
 		else if (d->map[y][x] == 'E' && d->open_exit == 1)
 			end_game(d);
-		return (1);
 	}
-	return (1);
 }
 
 /* 
 - games control : 
 - arrows and aswd keys to move   - q and esc to quit
 */
-int		game_controls(int KeySym, t_data *d)
+int	game_controls(int KeySym, t_data *d)
 {
 	if (KeySym == 'w' || KeySym == 65362)
 		player_moves(d, -1, 0);
@@ -89,7 +85,7 @@ int		game_controls(int KeySym, t_data *d)
 	return (0);
 }
 
-int		display_map(t_data *d)
+int	display_map(t_data *d)
 {
 	int		y;
 	int		x;
@@ -100,16 +96,16 @@ int		display_map(t_data *d)
 		x = 0;
 		while (d->map[y][x] != '\0')
 		{
-			if(d->map[y][x] == '1')
-				mlx_put_image_to_window(d->mlx, d->win, d->img.wall, x * TILE, y * TILE);
-			else if(d->map[y][x] == '0')
-				mlx_put_image_to_window(d->mlx, d->win, d->img.floor, x * TILE, y * TILE);
-			else if(d->map[y][x] == 'E')
-				mlx_put_image_to_window(d->mlx, d->win, d->img.exit0, x * TILE, y * TILE);
-			else if(d->map[y][x] == 'C')
-				mlx_put_image_to_window(d->mlx, d->win, d->img.collect, x * TILE, y * TILE);
-			else if(d->map[y][x] == 'P')
-				mlx_put_image_to_window(d->mlx, d->win, d->img.player, x * TILE , y * TILE);
+			if (d->map[y][x] == '1')
+				mlx_put_image_to_window(d, d->img.wall, x, y);
+			else if (d->map[y][x] == '0')
+				mlx_put_image_to_window(d, d->img.floor, x, y);
+			else if (d->map[y][x] == 'E')
+				mlx_put_image_to_window(d, d->img.exit0, x, y);
+			else if (d->map[y][x] == 'C')
+				mlx_put_image_to_window(d, d->img.collect, x, y);
+			else if (d->map[y][x] == 'P')
+				mlx_put_image_to_window(d, d->img.player, x, y);
 			x++;
 		}
 		y++;

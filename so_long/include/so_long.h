@@ -95,6 +95,8 @@ typedef struct s_data
 }				t_data;
 
 /* so_long_utils.c  */
+void	*xpm_file_to_image(t_data *d, char *xpm_file);
+int		put_img_to_window(t_data *d, void *img, int x, int y);
 int		put_error(char *str);
 int		put_moves(int nb_moves);
 void	print_map(char **map);
@@ -124,7 +126,7 @@ int		load_and_verify_map(t_data *d, int argc, char **argv);
 
 /* update_display.c */
 void	collect_item(t_data *d, int y, int x);
-int		put_labeled_int(char *label, int nb_moves, char *end);
+void	player_moves(t_data *d, int i, int j);
 int		game_controls(int KeySym, t_data *d);
 int		display_map(t_data *d);
 
@@ -134,5 +136,7 @@ int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);
 int		main(int argc, char **argv);
+
+int		put_labeled_int(char *label, int nb_moves, char *end);
 
 #endif
