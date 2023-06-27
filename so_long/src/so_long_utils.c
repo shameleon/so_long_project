@@ -13,7 +13,7 @@
 #include "../include/so_long.h"
 
 /* writes error message on std_err, returns a (0)*/
-int		put_error(char *str)
+int	put_error(char *str)
 {
 	ft_putendl_fd("Error", 2);
 	write(2, "# ", 2);
@@ -22,7 +22,7 @@ int		put_error(char *str)
 }
 
 /* writes error message on std_err, returns a (0)*/
-int		put_labeled_int(char *label, int nb_moves, char *end)
+int	put_labeled_int(char *label, int nb_moves, char *end)
 {
 	char	*str_moves;
 

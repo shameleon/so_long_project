@@ -17,7 +17,7 @@ checks map contents. at this stage map must be rectangular, minimum sized
 */
 
 /* copies linked-list contents into a char ** array*/
-static char	*fill_word(char *s, unsigned int wlen)
+char	*fill_word(char *s, unsigned int wlen)
 {
 	char	*word;
 
@@ -29,7 +29,7 @@ static char	*fill_word(char *s, unsigned int wlen)
 	return (word);
 }
 
-char		**ft_lst_split(t_data *d)
+char	**ft_lst_split(t_data *d)
 {
 	t_list	*node;
 	char	**map;
@@ -49,7 +49,7 @@ char		**ft_lst_split(t_data *d)
 		node = node->next;
 	}
 	map[d->nb_lines] = NULL;
-	return(map);
+	return (map);
 }
 
 /*
@@ -57,18 +57,18 @@ checks if map line content is compatible with MAP_SET "01PCE"
 verifies Wallproofing
 retrieves player coordinates to t_data"
 */
-void	charset_and_wallproofing(t_data *d, char *line, int   y)
+void	charset_and_wallproofing(t_data *d, char *line, int y)
 {
-	int     x;
+	int		x;
 
 	x = 0;
 	if (line[x] != '1' || line[d->line_len - 1] != '1')
 		outbound(d, "map must be surrounded by walls", 3);
-	while(line[x])
-	{ 
+	while (line[x])
+	{
 		if (!ft_strchr(MAP_SET, line[x]))
 			outbound(d, "map content not valid : only 01CPE chars please", 3);
-		if ((y == 0 || y == d->nb_lines - 1 ) && line[x] != '1')
+		if ((y == 0 || y == d->nb_lines - 1) && line[x] != '1')
 			outbound(d, "map must be surrounded by walls", 3);
 		if (line[x] == 'P')
 		{
@@ -87,10 +87,10 @@ void	charset_and_wallproofing(t_data *d, char *line, int   y)
 /* 
 checks map lines content and count P, C, E to data struct"
 */
-void    check_content(t_data *d)
+void	check_content(t_data *d)
 {
 	t_list	*node;
-	int     y;
+	int		y;
 
 	node = d->lst;
 	y = 0;
@@ -103,7 +103,7 @@ void    check_content(t_data *d)
 		node = node->next;
 		y++;
 	}
-	if (d->nb_player != 1 )
+	if (d->nb_player != 1)
 		outbound(d, "map not valid : provide exactly 1 player P please", 3);
 	if (d->nb_exit != 1)
 		outbound(d, "map not valid, provide exactly 1 exit E please", 3);

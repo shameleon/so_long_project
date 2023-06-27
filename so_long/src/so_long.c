@@ -13,15 +13,9 @@
 #include "../include/so_long.h"
 
 /* 
-https://tronche.com/gui/x/xlib/events/types.html
-https://qst0.github.io/ft_libgfx/man_mlx_loop.html
-https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
-*/
-
-/* 
 - exit upon mouse click on window corner
 */
-int		at_mouse_exit(t_data *d)
+int	at_mouse_exit(t_data *d)
 {
 	outbound(d, "Window closed : game over", 3);
 	return (0);
@@ -30,7 +24,7 @@ int		at_mouse_exit(t_data *d)
 /* 
 - initiates mlx 
 */
-int		init_mlx(t_data *d)
+int	init_mlx(t_data *d)
 {
 	d->mlx = mlx_init();
 	if (d->mlx == NULL)

@@ -52,12 +52,12 @@ RES		= "\33[0m"
 all:	$(NAME)	
 
 $(NAME): $(LIB_LFT) $(LIB_MLX)
-	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME) -g3
+	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
 #	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(LFLAGS_LFT) -o $(NAME)
 	@echo $(G) making so_long executable [OK]  $(RES) 
 
 $(LIB_LFT):
-	@make -C $(LFT_DIR) all
+	@make -C $(LFT_DIR) allcd ..
 	@make -C $(LFT_DIR) bonus
 	@echo  $(G) making libft.a including bonus [OK] $(RES) 
 
@@ -79,9 +79,9 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette *.c *.h
+	@norminette ./src/*
 
-.PHONY: all clean fclean re norm 
+.PHONY: all clean fclean re norm
 
 # DEBUG = -g3 -fsanitize=address
 # 

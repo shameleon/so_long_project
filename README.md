@@ -46,3 +46,7 @@ int main(void)
     return (0);
 }
 ```
+
+![events/types](https://tronche.com/gui/x/xlib/events/types.html)
+![man_mlx_loop](https://qst0.github.io/ft_libgfx/man_mlx_loop.html)
+![managing-events-with-the-minilibx](https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx)

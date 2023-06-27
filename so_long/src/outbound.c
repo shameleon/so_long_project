@@ -21,7 +21,7 @@ void	end_game(t_data *d)
 }
 
 /* cleans game before quiting */
-int		destruct_data(t_data *d)
+int	destruct_data(t_data *d)
 {
 	if (d->lst)
 		ft_lstclear(&(d->lst), free);
@@ -39,24 +39,12 @@ int		destruct_data(t_data *d)
 		mlx_destroy_image(d->mlx, d->img.exit1);
 	if (d->img.exit0)
 		mlx_destroy_image(d->mlx, d->img.exit0);
-	if(d->img.player_on_exit)
+	if (d->img.player_on_exit)
 		mlx_destroy_image(d->mlx, d->img.player_on_exit);
 	if (d->win)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)
-	{
 		mlx_destroy_display(d->mlx);
-		//free(d->mlx);
-	}
-	//if (d->img.wall)
-		//free (d->img.wall);
-	// d->img.wall = NULL;
-	// d->img.floor = NULL;
-	// d->img.player = NULL;
-	// d->img.collect = NULL;
-	// d->img.exit1 = NULL;
-	// d->img.exit0 = NULL;
-	// d->img.player_on_exit = NULL;
 	free(d->mlx);
 	return (1);
 }
@@ -69,7 +57,7 @@ err_code = 0 : end of game, destruct data and exit (0)
 err_code = 1 : no destruct, error message and exit (1)
 err_code = 2 : destruct, error message and exit (1)
 */
-int		outbound(t_data *d, char *mssg, int err_code)
+int	outbound(t_data *d, char *mssg, int err_code)
 {
 	if (err_code == 0)
 	{
@@ -78,7 +66,7 @@ int		outbound(t_data *d, char *mssg, int err_code)
 	}
 	else if (err_code == 2)
 	{
-		if	(d->line)
+		if (d->line)
 			free (d->line);
 	}
 	else if (err_code >= 3)

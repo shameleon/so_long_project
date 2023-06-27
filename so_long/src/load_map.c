@@ -41,7 +41,7 @@ char	*trim_eol(char *line, int *len)
 - verify if line contains a trailing \n and removes it 
 - checks line length and rectangular shape
  */
-int		ft_lst_fixline(t_data *d)
+int	ft_lst_fixline(t_data *d)
 {
 	int		len;
 	t_list	*node;
@@ -50,7 +50,7 @@ int		ft_lst_fixline(t_data *d)
 	node = d->lst;
 	while (node)
 	{
-		node->content = (void *)trim_eol((char*)(node->content), &len);
+		node->content = (void *)trim_eol((char *)(node->content), &len);
 		if (!(node->content))
 			outbound(d, "list memory allocation failed", 3);
 		if (len < MIN_MAP_SIZE || len > MAX_W)
@@ -68,7 +68,7 @@ int		ft_lst_fixline(t_data *d)
 
 /* reads with get_next_line() and pushes lines into a linked-list
 each node contains a string ending with an eventual trailing \n   */
-int		ft_lst_readlines(t_data *d, int fd)
+int	ft_lst_readlines(t_data *d, int fd)
 {
 	t_list	*new;
 
@@ -77,8 +77,8 @@ int		ft_lst_readlines(t_data *d, int fd)
 		d->line = get_next_line(fd);
 		if (!(d->line))
 			outbound(d, "file unreadable or has empty content", 1);
-		else if ( ft_strlen(d->line) < MIN_MAP_SIZE 
-				|| ft_strlen(d->line) > MAX_W)
+		else if (ft_strlen(d->line) < MIN_MAP_SIZE
+			|| ft_strlen(d->line) > MAX_W)
 			outbound(d, "input map width is out of bounds", 2);
 		else
 		{
@@ -95,20 +95,20 @@ int		ft_lst_readlines(t_data *d, int fd)
 }
 
 /* verifies that filename has a .ber extension */
-int		valid_filename(const char *file, char *pattern)
+int	valid_filename(const char *file, char *pattern)
 {
 	char	*ext;
 
 	ext = ft_strrchr(file, '.');
-	if(!ext)
+	if (!ext)
 		return (0);
-	if(ft_strncmp(ext, pattern, 5))
+	if (ft_strncmp(ext, pattern, 5))
 		return (0);
 	return (1);
 }
 
 /* loads map from .ber file */
-int		load_and_verify_map(t_data *d, int argc, char **argv)
+int	load_and_verify_map(t_data *d, int argc, char **argv)
 {
 	int		fd;
 

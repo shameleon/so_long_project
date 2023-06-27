@@ -29,7 +29,7 @@ void	copy_lst_to_split(t_data *d)
 }
 
 /* returns the count related to the occurence of a charset in a 2D-map */
-int		check_map_count(char **map, char *charset)
+int	check_map_count(char **map, char *charset)
 {
 	int		y;
 	int		i;
@@ -50,16 +50,16 @@ int		check_map_count(char **map, char *charset)
 	return (count);
 }
 
-int		floodfill(char **mirror, int y, int x)
+int	floodfill(char **mirror, int y, int x)
 {
-	if (mirror[y][x] == '0' || mirror[y][x] == 'C' 
+	if (mirror[y][x] == '0' || mirror[y][x] == 'C'
 	|| mirror[y][x] == 'P' || mirror[y][x] == 'E')
 	{
 		mirror[y][x] = '+';
 		floodfill(mirror, y, x + 1);
 		floodfill(mirror, y + 1, x);
 		floodfill(mirror, y, x - 1);
-		floodfill(mirror, y - 1, x );
+		floodfill(mirror, y - 1, x);
 	}
 	return (0);
 }
@@ -68,7 +68,7 @@ int		floodfill(char **mirror, int y, int x)
 initiates pathfinding on d->map 
 if pathfinding result is fine, copies linked-list data into an char ** array 
 */
-int     pathfinder(t_data *d)
+int	pathfinder(t_data *d)
 {
 	floodfill(d->map, d->player_y, d->player_x);
 	if (PRINT_PATHFINDER)
