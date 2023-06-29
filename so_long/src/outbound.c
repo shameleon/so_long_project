@@ -47,6 +47,7 @@ int	destruct_data(t_data *d)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)
 		mlx_destroy_display(d->mlx);
+	free(d->mlx);
 	return (1);
 }
 
