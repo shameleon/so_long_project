@@ -19,10 +19,6 @@ SRC_FILES	= so_long.c load_map.c so_long_utils.c \
 
 SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 
-# objects
-OBJ_DIR		= ./obj/
-OBJ			= $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
-
 # minilibx
 MLX_DIR		= ./minilibx-linux/
 LIB_MLX		= $(addprefix $(MLX_DIR), libmlx.a)
@@ -35,8 +31,7 @@ LIB_LFT		= $(addprefix $(LFT_DIR), libft.a)
 # compilation
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
-DEBUG		= -g3 -fsanitize=address
-CFLAGS		+= $(DEBUG)
+#CFLAGS		+= -g3 -fsanitize=address
 
 # includes
 INCL_NAME	= -I $(INCL_DIR)
@@ -55,13 +50,10 @@ LFLAGS_MLX		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
 
 all:	$(NAME)	
 
-$(NAME): $(OBJ) $(LIB_LFT) $(LIB_MLX)
-	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
+$(NAME): $(LIB_LFT) $(LIB_MLX)
+	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(INCL_MLX) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
+#	$(CC) $(CFLAGS) $(SRC) $(INCL_NAME) $(INCL_LFT) $(LFLAGS_LFT) -o $(NAME)
 	@echo $(G) making so_long executable [OK]  $(RES) 
-
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCL_NAME) -c $< -o $@
 
 $(LIB_LFT):
 	@make -C $(LFT_DIR) all
@@ -82,8 +74,6 @@ mlx:
 clean:
 	@make -C $(LFT_DIR) clean
 	@make -C $(MLX_DIR) clean
-	rm -rfv $(OBJ)
-	rmdir $(OBJ_DIR)
 	@echo cleaned *.o [OK]
 
 fclean: clean
@@ -114,13 +104,3 @@ norm:
 # colors
 G		= "\33[92m"
 RES		= "\33[0m"
-
-##### ANSI Escape Codes #####
-COL_RED = @echo "\033[1;31m"
-COL_GRN = @echo "\033[1;32m"
-COL_YEL = @echo "\033[1;33m"
-COL_BLU = @echo "\033[1;34m"
-COL_PUR = @echo "\033[1;35m"
-COL_CYA = @echo "\033[1;36m"
-COL_ORANGE = @echo "\033[1;38:5:214m"
-COL_RESET = @echo "\033[0m"

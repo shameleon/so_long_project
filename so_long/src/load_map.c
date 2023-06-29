@@ -90,7 +90,7 @@ int	ft_lst_readlines(t_data *d, int fd)
 		d->nb_lines += 1;
 	}
 	if (d->nb_lines < d->gameset.min_map_size
-		|| d->nb_lines > d->gameset.max_w)
+		|| d->nb_lines > d->gameset.max_h)
 		outbound(d, "input map height is out of bounds", 2);
 	return (1);
 }

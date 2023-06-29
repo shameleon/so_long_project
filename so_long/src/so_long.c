@@ -113,7 +113,7 @@ int	main(int argc, char **argv)
 	mlx_hook(d.win, 2, 1L << 0, game_controls, &d);
 	mlx_hook(d.win, 17, 1L << 0, at_mouse_exit, &d);
 	mlx_loop(d.mlx);
-	outbound(&d, "EXIT successfully reached ! Congratulations !!!", 0);
+	outbound(&d, "that error message should not be reached !", 0);
 	return (0);
 }
 

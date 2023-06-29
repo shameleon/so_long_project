@@ -15,7 +15,8 @@ Global in the .h file
 #define ERR_MLX 1
 ```
 
-Data is in a t_type datatype in the .h file     
+Data is in a t_type datatype in the .h file
+ 
 ```c
 typedef struct s_data
 {
@@ -24,7 +25,9 @@ typedef struct s_data
 }              t_data;
 
 ```
-basic to create and open a window 
+
+basic to create and open a window
+
 ```c
 int main(void)
 {
@@ -50,3 +53,10 @@ int main(void)
 ![events/types](https://tronche.com/gui/x/xlib/events/types.html)
 ![man_mlx_loop](https://qst0.github.io/ft_libgfx/man_mlx_loop.html)
 ![managing-events-with-the-minilibx](https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx)
+
+![interrupting-or-killing-make]( https://makefiletutorial.com/#interrupting-or-killing-make)
+
+```shell
+ env -i ./so_long 
+ ```
+
