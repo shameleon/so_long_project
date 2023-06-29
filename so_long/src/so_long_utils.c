@@ -26,7 +26,7 @@ void	*xpm_file_to_image(t_data *d, char *xpm_file)
 /* put_image_to_window */
 int	put_img_to_window(t_data *d, void *img, int x, int y)
 {
-	mlx_put_image_to_window(d->mlx, d->win, img, x * TILE, y * TILE);
+	mlx_put_image_to_window(d->mlx, d->win, img, x * d->tile, y * d->tile);
 	return (0);
 }
 
@@ -69,4 +69,5 @@ void	print_map(char **map)
 		write (1, "\n", 1);
 		y++;
 	}
+	write (1, "\n", 1);
 }

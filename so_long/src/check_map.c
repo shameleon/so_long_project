@@ -66,7 +66,7 @@ void	charset_and_wallproofing(t_data *d, char *line, int y)
 		outbound(d, "map must be surrounded by walls", 3);
 	while (line[x])
 	{
-		if (!ft_strchr(MAP_SET, line[x]))
+		if (!ft_strchr("01PCE", line[x]))
 			outbound(d, "map content not valid : only 01CPE chars please", 3);
 		if ((y == 0 || y == d->nb_lines - 1) && line[x] != '1')
 			outbound(d, "map must be surrounded by walls", 3);

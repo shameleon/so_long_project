@@ -71,15 +71,12 @@ if pathfinding result is fine, copies linked-list data into an char ** array
 int	pathfinder(t_data *d)
 {
 	floodfill(d->map, d->player_y, d->player_x);
-	if (PRINT_PATHFINDER)
+	if (d->gameset.print_pathfinding)
 		print_map(d->map);
 	if (check_map_count(d->map, "PCE") > 0)
 		outbound(d, "all collectibles and exit might not be reachable", 3);
 	copy_lst_to_split(d);
-	if (PRINT_PATHFINDER)
-	{
-		write (1, "\n", 1);
+	if (d->gameset.print_pathfinding)
 		print_map(d->map);
-	}
 	return (0);
 }

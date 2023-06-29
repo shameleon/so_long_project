@@ -53,9 +53,9 @@ int	ft_lst_fixline(t_data *d)
 		node->content = (void *)trim_eol((char *)(node->content), &len);
 		if (!(node->content))
 			outbound(d, "list memory allocation failed", 3);
-		if (len < MIN_MAP_SIZE || len > MAX_W)
+		if (len < d->gameset.min_map_size || len > d->gameset.max_w)
 			outbound(d, "input map size is out of bounds", 3);
-		else if (len > MAX_W)
+		else if (len > d->gameset.max_w)
 			outbound(d, "input map width is too small", 3);
 		if (node == d->lst)
 			d->line_len = len;
@@ -77,8 +77,8 @@ int	ft_lst_readlines(t_data *d, int fd)
 		d->line = get_next_line(fd);
 		if (!(d->line))
 			outbound(d, "file unreadable or has empty content", 1);
-		else if (ft_strlen(d->line) < MIN_MAP_SIZE
-			|| ft_strlen(d->line) > MAX_W)
+		else if ((int)ft_strlen(d->line) < d->gameset.min_map_size
+			|| (int)ft_strlen(d->line) > d->gameset.max_w)
 			outbound(d, "input map width is out of bounds", 2);
 		else
 		{
@@ -89,7 +89,8 @@ int	ft_lst_readlines(t_data *d, int fd)
 		}
 		d->nb_lines += 1;
 	}
-	if (d->nb_lines < MIN_MAP_SIZE || d->nb_lines > MAX_H)
+	if (d->nb_lines < d->gameset.min_map_size
+		|| d->nb_lines > d->gameset.max_w)
 		outbound(d, "input map height is out of bounds", 2);
 	return (1);
 }

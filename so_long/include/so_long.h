@@ -13,41 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-/* debug flags */
-# define READ_FILE  1
-# define VALIDATE_MAP 1
-# define PRINT_PATHFINDER 0
-
-/* map */
-# define MAP_SET "01PCE"
-# define MIN_MAP_SIZE 4
-# define MAX_W 32
-# define MAX_H 17
-
-/* texture size */
-# define TILE 80
-
-/* window title */
-# define WIN_TITLE "so_long jmouaike"
-
-/* textures relative path */
-# define XPM_WALL "./rss/wall.xpm"
-# define XPM_FLOOR "./rss/floor.xpm"
-# define XPM_PLAYER "./rss/player.xpm"
-# define XPM_COLLECT "./rss/collect_chocolate_egg.xpm"
-# define XPM_EXIT0 "./rss/exit_closed.xpm"
-# define XPM_EXIT1 "./rss/exit_open.xpm"
-# define XPM_PLAYER_ON_EXIT "./rss/player_on_exit.xpm"
-
-/* keyboard keys Linux */
-# define ARROW_UP 65362
-# define ARROW_DOWN 65364
-# define ARROW_LEFT 65361
-# define ARROW_RIGHT 65363
-# define KEY_ESC 65307
-
-/* Colors */
-# define BLUE 0x000000FF
+/* Color BLUE 0x000000FF */
 
 /* librairies */
 # include <unistd.h>
@@ -59,6 +25,22 @@
 # include "../minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
+
+typedef struct s_set
+{
+	char	*win_title;
+	char	*xpm_wall;
+	char	*xpm_floor;
+	char	*xpm_player;
+	char	*xpm_collect;
+	char	*xpm_exit0;
+	char	*xpm_exit1;
+	char	*xpm_player_on_exit;
+	int		print_pathfinding;
+	int		min_map_size;
+	int		max_w;
+	int		max_h;
+}				t_set;
 
 typedef struct s_img
 {
@@ -91,7 +73,9 @@ typedef struct s_data
 	int		open_exit;
 	int		exit_x;
 	int		exit_y;
+	int		tile;
 	t_img	img;
+	t_set	gameset;
 }				t_data;
 
 //int		put_moves(int nb_moves);
@@ -129,11 +113,12 @@ int		load_and_verify_map(t_data *d, int argc, char **argv);
 /* update_display.c */
 void	collect_item(t_data *d, int y, int x);
 void	player_moves(t_data *d, int i, int j);
+int		at_mouse_exit(t_data *d);
 int		game_controls(int KeySym, t_data *d);
 int		display_map(t_data *d);
 
 /*   so_long.c  */
-int		at_mouse_exit(t_data *d);
+int		set_game(t_data *d);
 int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);

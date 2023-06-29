@@ -67,6 +67,15 @@ void	player_moves(t_data *d, int i, int j)
 }
 
 /* 
+- exits upon mouse click on window corner
+*/
+int	at_mouse_exit(t_data *d)
+{
+	outbound(d, "Window closed : Game Over !!!", 3);
+	return (0);
+}
+
+/* 
 - games control : 
 - arrows and aswd keys to move   - q and esc to quit
 */
@@ -81,7 +90,7 @@ int	game_controls(int KeySym, t_data *d)
 	else if (KeySym == 'd' || KeySym == 65363)
 		player_moves(d, 0, 1);
 	else if (KeySym == 'q' || KeySym == 65307)
-		outbound(d, "key [q] pressed for exiting : game over", 3);
+		outbound(d, "key [Esc or Quit] pressed for exiting : game over", 3);
 	return (0);
 }
 

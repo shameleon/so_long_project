@@ -23,6 +23,7 @@ SRC 		= $(addprefix $(SRC_DIR),$(SRC_FILES))
 # minilibx
 MLX_DIR		= ./minilibx-linux/
 LIB_MLX		= $(addprefix $(MLX_DIR), libmlx.a)
+MLX_INTRA42	= "https://cdn.intra.42.fr/document/document/17922/minilibx-linux.tgz"
 
 # Libft
 LFT_DIR		= ./libft/
@@ -40,10 +41,6 @@ INCL_LFT	= -I $(LFT_DIR)
 LFLAGS_LFT	= -L $(LFT_DIR) -lft 
 # mlx (Linux)
 LFLAGS_MLX		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
-
-# colors
-G		= "\33[92m"
-RES		= "\33[0m"
 
 # ########################## #
 #      Makefile rules        #
@@ -65,6 +62,13 @@ $(LIB_MLX):
 	@make -C $(MLX_DIR) all
 	@echo $(G) making libmlx.a [OK] $(RES) 
 
+mlx:
+	@if [ ! -d $(MLX_DIR) ]; then \
+		wget $(MLX_INTRA42); \
+		tar -xvzf minilibx-linux.tgz; \
+		rm -f minilibx-linux.tgz; \
+		fi
+
 clean:
 	@make -C $(LFT_DIR) clean
 	@make -C $(MLX_DIR) clean
@@ -84,7 +88,7 @@ norm:
 	@echo $(G) libft directory $(RES) 
 	@norminette $(LFT_DIR)*.c $(LFT_DIR)*.h
 
-.PHONY: all clean fclean re norm
+.PHONY: all clean fclean re norm mlx
 
 # DEBUG = -g3 -fsanitize=address
 # 
@@ -95,3 +99,7 @@ norm:
 # gcc -Wall -Werror -Wextra ./src/so_long.c ./src/load_map.c ./src/so_long_utils.c ./src/check_map.c
 # ./src/outbound.c ./src/pathfinding.c -I ./include/ -I ./libft/ -I ./minilibx-linux-master -L ./libft/ -lft 
 # -L ./minilibx-linux-master -lmlx -lX11 -lXext -lm -lz   -o so_long
+
+# colors
+G		= "\33[92m"
+RES		= "\33[0m"

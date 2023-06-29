@@ -16,8 +16,7 @@
 
 #define WIN_W 1800
 #define WIN_H 800
-#define WIN_TITLE "explore mlx 02"
-#define ERR_MLX 1
+#define WIN_TITLE "so_long"
 #define WALL "../so_long/rss/wall.xpm"
 #define FLOOR "../so_long/rss/floor.xpm"
 #define TILE_SIZE 32
