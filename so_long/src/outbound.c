@@ -20,7 +20,9 @@ void	end_game(t_data *d)
 	outbound(d, "[ success ]", 0);
 }
 
-/* cleans game before quiting */
+/* cleans game before quiting
+	removed free(d->mlx);
+*/
 int	destruct_data(t_data *d)
 {
 	if (d->lst)
@@ -45,7 +47,6 @@ int	destruct_data(t_data *d)
 		mlx_destroy_window(d->mlx, d->win);
 	if (d->mlx)
 		mlx_destroy_display(d->mlx);
-	free(d->mlx);
 	return (1);
 }
 

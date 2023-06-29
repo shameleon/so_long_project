@@ -94,11 +94,13 @@ typedef struct s_data
 	t_img	img;
 }				t_data;
 
+//int		put_moves(int nb_moves);
+
 /* so_long_utils.c  */
 void	*xpm_file_to_image(t_data *d, char *xpm_file);
 int		put_img_to_window(t_data *d, void *img, int x, int y);
 int		put_error(char *str);
-int		put_moves(int nb_moves);
+int		put_labeled_int(char *label, int nb_moves, char *end);
 void	print_map(char **map);
 
 /* outbound.c  */
@@ -136,7 +138,5 @@ int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
 int		init_data(t_data *d);
 int		main(int argc, char **argv);
-
-int		put_labeled_int(char *label, int nb_moves, char *end);
 
 #endif

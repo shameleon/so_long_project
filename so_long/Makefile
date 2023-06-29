@@ -30,8 +30,8 @@ LIB_LFT		= $(addprefix $(LFT_DIR), libft.a)
 
 # compilation
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -g3 
-#-fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra
+#CFLAGS		+= -g3 -fsanitize=address
 INCL_NAME	= -I $(INCL_DIR)
 INCL_MLX	= -I $(MLX_DIR)
 INCL_LFT	= -I $(LFT_DIR)

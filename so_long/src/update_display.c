@@ -97,15 +97,15 @@ int	display_map(t_data *d)
 		while (d->map[y][x] != '\0')
 		{
 			if (d->map[y][x] == '1')
-				mlx_put_image_to_window(d, d->img.wall, x, y);
+				put_img_to_window(d, d->img.wall, x, y);
 			else if (d->map[y][x] == '0')
-				mlx_put_image_to_window(d, d->img.floor, x, y);
+				put_img_to_window(d, d->img.floor, x, y);
 			else if (d->map[y][x] == 'E')
-				mlx_put_image_to_window(d, d->img.exit0, x, y);
+				put_img_to_window(d, d->img.exit0, x, y);
 			else if (d->map[y][x] == 'C')
-				mlx_put_image_to_window(d, d->img.collect, x, y);
+				put_img_to_window(d, d->img.collect, x, y);
 			else if (d->map[y][x] == 'P')
-				mlx_put_image_to_window(d, d->img.player, x, y);
+				put_img_to_window(d, d->img.player, x, y);
 			x++;
 		}
 		y++;

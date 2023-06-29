@@ -13,7 +13,7 @@
 #include "../include/so_long.h"
 
 /* 
-- exit upon mouse click on window corner
+- exits upon mouse click on window corner
 */
 int	at_mouse_exit(t_data *d)
 {
@@ -64,6 +64,9 @@ void	load_sprites(t_data *d)
 		outbound(d, "player_on_exit image file could not be loaded", 3);
 }
 
+/* 
+- initializes data set
+*/
 int	init_data(t_data *d)
 {
 	ft_memset(d, 0, sizeof(t_data));
@@ -104,9 +107,7 @@ int	main(int argc, char **argv)
 /*
 issues :
 valgrind --leak-check=full --show-leak-kinds=all -s
-1- still reachable main->load_sprites->mlx_xpam_file_to_image-
-	XShmCreateImage -> calloc
-	===> free textures in outbound / destruct_data()
+
 
 https://tronche.com/gui/x/xlib/events/keyboard-pointer/keyboard-pointer.html
 */
