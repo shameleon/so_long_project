@@ -36,7 +36,6 @@ LIB_LFT		= $(addprefix $(LFT_DIR), libft.a)
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
 DEBUG		= -g3 -fsanitize=address
-CFLAGS		+= $(DEBUG)
 
 # includes
 INCL_NAME	= -I $(INCL_DIR)
@@ -55,9 +54,9 @@ LFLAGS_MLX		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
 
 all:	$(NAME)	
 
-$(NAME): $(OBJ) $(LIB_LFT) $(LIB_MLX)
+$(NAME): $(LIB_LFT) $(LIB_MLX) $(OBJ) 
 	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS_LFT) $(LFLAGS_MLX) -o $(NAME)
-	@echo $(G) making so_long executable [OK]  $(RES) 
+	@echo $(OR) making so_long executable [OK]  $(RES) 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
@@ -66,7 +65,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 $(LIB_LFT):
 	@make -C $(LFT_DIR) all
 	@make -C $(LFT_DIR) bonus
-	@echo  $(G) making libft.a including bonus [OK] $(RES) 
+	@echo  $(PK) making libft.a including bonus [OK] $(RES) 
 
 $(LIB_MLX):
 	@make -C $(MLX_DIR) all
@@ -74,30 +73,33 @@ $(LIB_MLX):
 
 mlx:
 	@if [ ! -d $(MLX_DIR) ]; then \
+		@echo $(G) "minilibx installation :"
 		wget $(MLX_INTRA42); \
 		tar -xvzf minilibx-linux.tgz; \
 		rm -f minilibx-linux.tgz; \
 		fi
 
 clean:
-	@make -C $(LFT_DIR) clean
-	@make -C $(MLX_DIR) clean
-	rm -rfv $(OBJ)
-	rmdir $(OBJ_DIR)
+	@make clean -C $(LFT_DIR)
+	@make clean -C $(MLX_DIR)
+	@if [ -d $(OBJ_DIR) ]; then \
+		rm -rfv $(OBJ); \
+		rmdir $(OBJ_DIR); \
+		fi
 	@echo cleaned *.o [OK]
 
 fclean: clean
-	@rm -rf $(NAME)
-	@make -C $(LFT_DIR) fclean
-#	@make -C $(MLX_DIR) fclean
+	rm -rfv $(NAME)
+	@make fclean -C $(LFT_DIR)
 	@echo fcleaned *.a [OK]
 
 re: fclean all
 
 norm:
-	@echo $(G) so_long directory $(RES) 
+	@echo $(VI) "norminette check for *.c *.h files :"
+	@echo $(OR) so_long directory $(RES) 
 	@norminette $(SRC_DIR)* $(INCL_DIR)*
-	@echo $(G) libft directory $(RES) 
+	@echo $(PK) libft directory $(RES) 
 	@norminette $(LFT_DIR)*.c $(LFT_DIR)*.h
 
 .PHONY: all clean fclean re norm mlx
@@ -111,16 +113,11 @@ norm:
 # ./src/outbound.c ./src/pathfinding.c -I ./include/ -I ./libft/ -I ./minilibx-linux-master -L ./libft/ -lft 
 # -L ./minilibx-linux-master -lmlx -lX11 -lXext -lm -lz   -o so_long
 
-# colors
-G		= "\33[92m"
-RES		= "\33[0m"
-
 ##### ANSI Escape Codes #####
-COL_RED = @echo "\033[1;31m"
-COL_GRN = @echo "\033[1;32m"
-COL_YEL = @echo "\033[1;33m"
-COL_BLU = @echo "\033[1;34m"
-COL_PUR = @echo "\033[1;35m"
-COL_CYA = @echo "\033[1;36m"
-COL_ORANGE = @echo "\033[1;38:5:214m"
-COL_RESET = @echo "\033[0m"
+G 		= "\33[1;32m"
+VI		= "\33[1;38:5:55m"
+PK		= "\33[1;95:185:55m"
+OR		= "\33[1;38:5:214m"
+YL		= "\33[1;33m"
+CY		= "\33[1;36m"
+RES		= "\33[0m"
