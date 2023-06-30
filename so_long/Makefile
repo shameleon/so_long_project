@@ -73,7 +73,6 @@ $(LIB_MLX):
 
 mlx:
 	@if [ ! -d $(MLX_DIR) ]; then \
-		@echo $(G) "minilibx installation :"
 		wget $(MLX_INTRA42); \
 		tar -xvzf minilibx-linux.tgz; \
 		rm -f minilibx-linux.tgz; \
