@@ -104,10 +104,8 @@ norm:
 
 .PHONY: all clean fclean re norm mlx
 
-# DEBUG = -g3 -fsanitize=address
-# 
+
 # valgrind --leak-check=full --show-leak-kinds=all -s -q
-#
 #
 # gcc -Wall -Werror -Wextra ./src/so_long.c ./src/load_map.c ./src/so_long_utils.c ./src/check_map.c
 # ./src/outbound.c ./src/pathfinding.c -I ./include/ -I ./libft/ -I ./minilibx-linux-master -L ./libft/ -lft 
