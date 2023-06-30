@@ -6,17 +6,13 @@
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:39:18 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/03 14:39:42 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:08:26 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* 
-checks map contents. at this stage map must be rectangular, minimum sized
-*/
-
-/* copies linked-list contents into a char ** array*/
+/* auxiliar function to ft_lst_split */
 char	*fill_word(char *s, unsigned int wlen)
 {
 	char	*word;
@@ -29,6 +25,7 @@ char	*fill_word(char *s, unsigned int wlen)
 	return (word);
 }
 
+/* copies linked-list contents into a char ** array*/
 char	**ft_lst_split(t_data *d)
 {
 	t_list	*node;
@@ -55,8 +52,7 @@ char	**ft_lst_split(t_data *d)
 /*
 checks if map line content is compatible with MAP_SET "01PCE"
 verifies Wallproofing
-retrieves player coordinates to t_data"
-*/
+retrieves player and exit coordinates to t_data *d         */
 void	charset_and_wallproofing(t_data *d, char *line, int y)
 {
 	int		x;
@@ -84,9 +80,7 @@ void	charset_and_wallproofing(t_data *d, char *line, int y)
 	}
 }
 
-/* 
-checks map lines content and count P, C, E to data struct"
-*/
+/* checks map lines content and counts P, C, E to data struct */
 void	check_content(t_data *d)
 {
 	t_list	*node;

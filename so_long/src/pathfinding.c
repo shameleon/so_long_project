@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_finding.c                                     :+:      :+:    :+:   */
+/*   pathfinding.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:42:47 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/01/30 14:16:43 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:09:16 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* copies linked-list data to d->map after successfull pathfinding*/
-void	copy_lst_to_split(t_data *d)
+/* copies linked-list data to d->map after successfull pathfinding */
+void	copy_lst_to_map(t_data *d)
 {
 	t_list	*node;
 	int		y;
 
-	node = d-> lst;
+	node = d->lst;
 	y = 0;
 	while (y < d->nb_lines)
 	{
@@ -75,7 +75,7 @@ int	pathfinder(t_data *d)
 		print_map(d->map);
 	if (check_map_count(d->map, "PCE") > 0)
 		outbound(d, "all collectibles and exit might not be reachable", 3);
-	copy_lst_to_split(d);
+	copy_lst_to_map(d);
 	if (d->gameset.print_pathfinding)
 		print_map(d->map);
 	return (0);

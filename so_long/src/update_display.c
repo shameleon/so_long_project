@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   update_display.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:30:16 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/20 16:30:26 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:11:23 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
+/* collects item when player is on a collectible tile*/
 void	collect_item(t_data *d, int y, int x)
 {
 	d->map[y][x] = '0';
@@ -27,16 +28,9 @@ void	collect_item(t_data *d, int y, int x)
 	}
 }
 
-/* 
-- eventual updates upon 'game_controls()' sent params
-- checks if next move coords ( x and y ) and if needed tiggers adequate updates :
-	- display update : places player sprite on new pos
-		and replaces previous pos with floor or exit.
-	- player position values update 
-	- update value for number of moves 
-		and writes it on terminal stdout         --> put_labeled_int()
-	- collectible found                          --> collect_item()
-- updates display according to player moves
+/* updates window display
+ places player sprite on new tile and correct previous tile display
+ puts noumber of moves to std_out
 */
 void	player_moves(t_data *d, int i, int j)
 {
@@ -58,7 +52,7 @@ void	player_moves(t_data *d, int i, int j)
 		d->player_y += i;
 		d->player_x += j;
 		d->player_moves += 1;
-		put_labeled_int("plaver : ", d->player_moves, " moves");
+		put_labeled_int("player : ", d->player_moves, " moves");
 		if (d->map[y][x] == 'C')
 			collect_item(d, y, x);
 		else if (d->map[y][x] == 'E' && d->open_exit == 1)
@@ -66,19 +60,15 @@ void	player_moves(t_data *d, int i, int j)
 	}
 }
 
-/* 
-- exits upon mouse click on window corner
-*/
+/*  exits upon mouse click on window corner */
 int	at_mouse_exit(t_data *d)
 {
 	outbound(d, "Window closed : Game Over !!!", 3);
 	return (0);
 }
 
-/* 
-- games control : 
-- arrows and aswd keys to move   - q and esc to quit
-*/
+/*  games control : 
+- arrows and aswd keys to move   - q and esc to quit */
 int	game_controls(int KeySym, t_data *d)
 {
 	if (KeySym == 'w' || KeySym == 65362)
@@ -90,10 +80,11 @@ int	game_controls(int KeySym, t_data *d)
 	else if (KeySym == 'd' || KeySym == 65363)
 		player_moves(d, 0, 1);
 	else if (KeySym == 'q' || KeySym == 65307)
-		outbound(d, "key [Esc or Quit] pressed for exiting : game over", 3);
+		outbound(d, "key [Esc or Quit] pressed for exiting : Game Over !", 3);
 	return (0);
 }
 
+/* displays map to window. Uses mlx_put_image_to_window */
 int	display_map(t_data *d)
 {
 	int		y;

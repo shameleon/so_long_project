@@ -6,16 +6,13 @@
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 07:49:21 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/01/10 07:53:39 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:11:57 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-/* Color BLUE 0x000000FF */
-
-/* librairies */
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -78,8 +75,6 @@ typedef struct s_data
 	t_set	gameset;
 }				t_data;
 
-//int		put_moves(int nb_moves);
-
 /* so_long_utils.c  */
 void	*xpm_file_to_image(t_data *d, char *xpm_file);
 int		put_img_to_window(t_data *d, void *img, int x, int y);
@@ -117,10 +112,10 @@ int		at_mouse_exit(t_data *d);
 int		game_controls(int KeySym, t_data *d);
 int		display_map(t_data *d);
 
-/*   so_long.c  */
-int		set_game(t_data *d);
+/* so_long.c  */
 int		init_mlx(t_data *d);
 void	load_sprites(t_data *d);
+int		set_game(t_data *d);
 int		init_data(t_data *d);
 int		main(int argc, char **argv);
 

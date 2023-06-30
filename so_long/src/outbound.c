@@ -6,7 +6,7 @@
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 13:42:35 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/03 13:48:17 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:09:02 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	end_game(t_data *d)
 	outbound(d, "[ success ]", 0);
 }
 
-/* cleans game before quiting
-	removed free(d->mlx);
-*/
+/* cleans game before quiting */
 int	destruct_data(t_data *d)
 {
 	if (d->lst)
@@ -57,8 +55,7 @@ handles game exit : cleans free and destroy
 - returns 0 if exit is end of game
 err_code = 0 : end of game, destruct data and exit (0)
 err_code = 1 : no destruct, error message and exit (1)
-err_code = 2 : destruct, error message and exit (1)
-*/
+err_code = 2 : destruct, error message and exit (1)  */
 int	outbound(t_data *d, char *mssg, int err_code)
 {
 	if (err_code == 0)

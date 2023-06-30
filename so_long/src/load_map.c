@@ -6,17 +6,15 @@
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 09:05:56 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/02 09:06:00 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:08:38 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* 
-generates a substring if a GNL-produced line ends with a '\n'.
+/* generates a substring if a GNL-produced line ends with a '\n'.
 line length '*len' is also determined, without the final '\n'
-and checked idf not too small
-*/
+and checked idf not too small */
 char	*trim_eol(char *line, int *len)
 {
 	char	*pure_line;
@@ -123,6 +121,6 @@ int	load_and_verify_map(t_data *d, int argc, char **argv)
 	if (!ft_lst_readlines(d, fd))
 		outbound(d, "file not readable, empty or memory allocated", 1);
 	if (!ft_lst_fixline(d))
-		outbound(d, "memory could not be allocated", 2);
+		outbound(d, "file processing : memory allocation failed", 2);
 	return (1);
 }

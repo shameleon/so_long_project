@@ -6,13 +6,13 @@
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 08:50:05 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/02/02 08:50:13 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:10:14 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* loads xpm_file to t_img pointer*/
+/* loads xpm_file to t_img pointer */
 void	*xpm_file_to_image(t_data *d, char *xpm_file)
 {
 	void	*sprite;
@@ -23,7 +23,7 @@ void	*xpm_file_to_image(t_data *d, char *xpm_file)
 	return (sprite);
 }
 
-/* put_image_to_window */
+/* puts an image to window */
 int	put_img_to_window(t_data *d, void *img, int x, int y)
 {
 	mlx_put_image_to_window(d->mlx, d->win, img, x * d->tile, y * d->tile);
@@ -39,7 +39,7 @@ int	put_error(char *str)
 	return (0);
 }
 
-/* writes error message on std_err, returns a (0)*/
+/* puts a ("%s %d %s") format to std_out */
 int	put_labeled_int(char *label, int nb_moves, char *end)
 {
 	char	*str_moves;
@@ -52,6 +52,7 @@ int	put_labeled_int(char *label, int nb_moves, char *end)
 	return (0);
 }
 
+/* puts map to std_out */
 void	print_map(char **map)
 {
 	int		x;

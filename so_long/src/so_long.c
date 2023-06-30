@@ -6,15 +6,13 @@
 /*   By: jmouaike <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 08:49:09 by jmouaike          #+#    #+#             */
-/*   Updated: 2023/01/23 13:33:12 by jmouaike         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:10:00 by jmouaike         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* 
-- initiates mlx 
-*/
+/* initiates mlx */
 int	init_mlx(t_data *d)
 {
 	d->mlx = mlx_init();
@@ -27,9 +25,7 @@ int	init_mlx(t_data *d)
 	return (0);
 }
 
-/* 
-- load images that will be pointed by d->img structure elements
-*/
+/* loads images that will be pointed by d->img structure elements */
 void	load_sprites(t_data *d)
 {
 	d->img.wall = xpm_file_to_image(d, d->gameset.xpm_wall);
@@ -55,9 +51,7 @@ void	load_sprites(t_data *d)
 		outbound(d, "player_on_exit image file could not be loaded", 3);
 }
 
-/* 
-- initializes game settings
-*/
+/* initializes game settings */
 int	set_game(t_data	*d)
 {
 	d->gameset.win_title = "so_long jmouaike";
@@ -76,9 +70,7 @@ int	set_game(t_data	*d)
 	return (0);
 }
 
-/* 
-- initializes data set
-*/
+/* initializes data set */
 int	init_data(t_data *d)
 {
 	ft_memset(d, 0, sizeof(t_data));
@@ -97,7 +89,7 @@ int	init_data(t_data *d)
 	return (0);
 }
 
-/* main */
+/* main  */
 int	main(int argc, char **argv)
 {
 	t_data	d;
@@ -116,11 +108,3 @@ int	main(int argc, char **argv)
 	outbound(&d, "that error message should not be reached !", 0);
 	return (0);
 }
-
-/*
-issues :
-valgrind --leak-check=full --show-leak-kinds=all -s
-
-
-https://tronche.com/gui/x/xlib/events/keyboard-pointer/keyboard-pointer.html
-*/
