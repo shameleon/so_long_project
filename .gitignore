@@ -1,9 +1,10 @@
-.DS_Store
-*.swp
+# vscode
+*.code-workspace
 ./.vscode/*
 .vscode
 *.txt
-*.md
+.DS_Store
+*.swp
 # Prerequisites
 *.d
 # Compiled Object files

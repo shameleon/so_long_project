@@ -26,7 +26,7 @@ OBJ			= $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 # minilibx
 MLX_DIR		= ./minilibx-linux/
 LIB_MLX		= $(addprefix $(MLX_DIR), libmlx.a)
-MLX_INTRA42	= "https://cdn.intra.42.fr/document/document/17922/minilibx-linux.tgz"
+MLX_INTRA42	= "https://cdn.intra.42.fr/document/document/20900/minilibx-linux.tgz"
 
 # Libft
 LFT_DIR		= ./libft/
