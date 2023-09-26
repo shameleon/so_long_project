@@ -2,7 +2,7 @@
 
 My solution to the ```so_long``` project at 42 Paris.
 
-Validated on jun-30 2023 with a score of 1️⃣0️⃣0️⃣ by 3 peers. 1 rated as an outstanding project.
+Validated on jun-30 2023 with a score of 1️⃣0️⃣0️⃣ + 1 rating as outstanding project.
 
 ---
 
@@ -15,7 +15,7 @@ Its purpose is to make you work with textures, sprites,
 and some other very basic gameplay elements.
 Objective : create a small 2D-game in C language."
 
-### Maps
+### Map validity
 
     * Map file name must bear a **.ber** extension.
     * Map file contains only theses characters :
