@@ -4,6 +4,10 @@ My solution to the ```so_long``` project at 42 Paris.
 
 Validated on jun-30 2023 with a score of 1️⃣0️⃣0️⃣ + 1 rating as outstanding project.
 
+## Screenshot
+
+![so-long-screen](./screenshots/screenshot_1.png)
+
 ---
 
 ## Subject
@@ -103,10 +107,6 @@ Map ```.ber``` files can be found in the ```./maps/``` directory. Among which, m
 Valid ```.ber``` maps in that directory have file name prefix numbers above 30, such as ```30_exit_blocks_the_c.ber```.
 
 ```so_long``` will control if a map is valid, checks for conformity to subject constrains. To check whether a ```player``` can reach all ```items``` and the```exit```, ```so_long``` also launches a pathfinding, based on a floodfilling algorithm.
-
-### Screenshot
-
-![so-long-screen](./screenshots/screenshot_1.png)
 
 ---
 
